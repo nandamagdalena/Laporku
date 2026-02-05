@@ -12,7 +12,7 @@ class IndexUserController extends Controller
     {
         $query = User::where('role', 'user');
 
-        // 🔍 SEARCH (dibungkus biar role tidak bocor)
+        // SEARCH
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {
                 $q->where('name', 'like', '%' . $request->search . '%')
@@ -21,7 +21,6 @@ class IndexUserController extends Controller
             });
         }
 
-        // 🔃 SORT
         $sort = $request->query('sort', 'az');
 
         if ($sort === 'za') {
@@ -30,7 +29,7 @@ class IndexUserController extends Controller
             $query->orderBy('name', 'asc');
         }
 
-        // 📄 PAGINATION + bawa query (?search & ?sort)
+        // 📄 PAGINATION
         $users = $query->paginate(10)->withQueryString();
 
         return view('admin.daftarpengguna', compact('users', 'sort'));

@@ -9,14 +9,31 @@ use Illuminate\Support\Facades\Storage;
 
 class AspirationController extends Controller
 {
-    // ADMIN - LIST
-    public function index()
+    // ADMIN - LIST (SEARCH + FILTER)
+    public function index(Request $request)
     {
-        $aspirations = Aspiration::with(['user', 'category'])
-            ->latest()
-            ->paginate(10);
+        // ambil kategori buat filter
+        $categories = Category::orderBy('name')->get();
 
-        return view('admin.aspiration.index', compact('aspirations'));
+        $aspirations = Aspiration::with(['user', 'category'])
+            ->when($request->search, function ($q) use ($request) {
+                $q->whereHas('user', function ($u) use ($request) {
+                    $u->where('name', 'like', '%' . $request->search . '%');
+                })
+                ->orWhere('lokasi', 'like', '%' . $request->search . '%')
+                ->orWhere('keterangan', 'like', '%' . $request->search . '%');
+            })
+            ->when($request->category, function ($q) use ($request) {
+                $q->whereIn('category_id', $request->category);
+            })
+            ->when($request->status, function ($q) use ($request) {
+                $q->where('status', $request->status);
+            })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('admin.daftarpengaduan', compact('aspirations', 'categories'));
     }
 
     // ADMIN - DETAIL
@@ -89,12 +106,24 @@ class AspirationController extends Controller
     }
 
     // USER - RIWAYAT PENGADUAN SENDIRI
-    public function myAspiration()
+    public function myAspiration(Request $request)
     {
-        $aspirations = Aspiration::where('user_id', auth()->id())
-            ->latest()
-            ->paginate(10);
+        // ambil kategori (ID + NAMA)
+        $categories = Category::orderBy('name')->get();
 
-        return view('user.riwayat', compact('aspirations'));
+        $aspirations = Aspiration::where('user_id', auth()->id())
+            ->when($request->search, function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%')
+                ->orWhere('information', 'like', '%' . $request->search . '%');
+            })
+            ->when($request->category, function ($q) use ($request) {
+                $q->whereIn('category_id', $request->category); // ⬅️ FIX
+            })
+            ->with('category')
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('user.riwayat', compact('aspirations', 'categories'));
     }
 }

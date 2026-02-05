@@ -17,6 +17,19 @@ class AuthController extends Controller
         $this->user = $user;
     }
 
+    public function home()
+    {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
+        return match (Auth::user()->role) {
+            'admin' => redirect()->route('admin.dashboard'),
+            'user'  => redirect()->route('user.dashboard'),
+            default => $this->forceLogout(),
+        };
+    }
+
     public function registerForm()
     {
         return view('auth.register');
@@ -31,33 +44,37 @@ class AuthController extends Controller
     {
         $this->user->create($request->validated());
 
-        return redirect('/login')->with('success', 'Register berhasil');
+        return redirect()
+            ->route('login')
+            ->with('success', 'Register berhasil, silakan login');
     }
 
     public function login(LoginRequest $request)
     {
-        $credentials = $request->validated();
-
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-
-            $user = Auth::user();
-
-            if ($user->role === 'admin') {
-                return redirect()->route('admin.dashboard');
-            }
-
-            if ($user->role === 'user') {
-                return redirect()->route('user.dashboard');
-            }
-
-            Auth::logout();
-            return redirect('/login')->withErrors('Role tidak dikenali');
+        if (!Auth::attempt($request->validated())) {
+            return back()->withErrors([
+                'email' => 'Email atau password salah',
+            ]);
         }
 
-        return back()->withErrors([
-            'email' => 'Email atau password salah',
-        ]);
+        $request->session()->regenerate();
+
+        return match (Auth::user()->role) {
+            'admin' => redirect()->intended(route('admin.dashboard')),
+            'user'  => redirect()->intended(route('user.dashboard')),
+            default => $this->forceLogout(),
+        };
+    }
+
+    private function forceLogout()
+    {
+        Auth::logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+
+        return redirect()
+            ->route('login')
+            ->withErrors('Role tidak dikenali');
     }
 
     public function logout(Request $request)
@@ -66,6 +83,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect()->route('login');
     }
 }

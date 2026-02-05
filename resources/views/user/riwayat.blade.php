@@ -17,8 +17,10 @@
 {{-- CARD --}}
 <div class="bg-white rounded-xl shadow border border-gray-100 p-6">
 
-    {{-- SEARCH --}}
+    {{-- SEARCH + FILTER --}}
     <form method="GET" class="mb-5 flex items-center gap-2">
+
+        {{-- SEARCH --}}
         <div class="relative w-72">
             <input
                 type="text"
@@ -28,16 +30,55 @@
                 class="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             >
             <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                🔍
+                <i class="fa-solid fa-magnifying-glass"></i>
             </span>
         </div>
-        <button
-            type="submit"
-            class="p-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100"
-            title="Filter"
-        >
-            ⚙️
-        </button>
+
+
+        {{-- FILTER --}}
+        <details class="relative">
+            <summary
+                class="w-10 h-10 flex items-center justify-center border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 cursor-pointer"
+                title="Filter">
+                <i class="fa-solid fa-sliders"></i>
+            </summary>
+
+            <div class="absolute right-0 mt-2 w-72 bg-white border border-gray-200 rounded-xl p-4 shadow-lg z-10">
+
+                <p class="font-semibold text-base mb-3">Kategori</p>
+
+                <div class="space-y-2 mb-4">
+                @foreach ($categories as $cat)
+                    <label class="flex items-center gap-2">
+                        <input
+                            type="checkbox"
+                            name="category[]"
+                            value="{{ $cat->id }}"
+                            {{ in_array($cat->id, request('category', [])) ? 'checked' : '' }}
+                            class="rounded border-gray-300 text-blue-600"
+                        >
+                        <span class="text-sm text-gray-700">
+                            {{ $cat->name }}
+                        </span>
+                    </label>
+                @endforeach
+                </div>
+
+                <div class="flex gap-2">
+                    <a href="{{ route('pengaduan.mine') }}"
+                    class="w-full text-center text-sm py-2 border border-gray-300 rounded-lg">
+                        Reset
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="w-full text-sm py-2 bg-blue-700 text-white rounded-lg">
+                        Terapkan
+                    </button>
+                </div>
+            </div>
+        </details>
+
     </form>
 
     {{-- TABLE --}}
@@ -98,7 +139,7 @@
                             class="inline-flex items-center justify-center w-8 h-8 rounded-full border border-blue-500 text-blue-600 hover:bg-blue-50 transition"
                             title="Lihat Detail"
                         >
-                            👁
+                            <i class="fa-solid fa-eye"></i>
                         </a>
                     </td>
                 </tr>
@@ -121,26 +162,13 @@
             – {{ $aspirations->lastItem() }}
             dari {{ $aspirations->total() }} data
         </div>
-        <div class="pagination-blue">
+        {{-- pagination --}}
+        <div>
             {{ $aspirations->links() }}
         </div>
     </div>
 
+    <script>
+    </script>
 </div>
-
-{{-- CUSTOM PAGINATION COLOR --}}
-<style>
-.pagination-blue .page-link,
-.pagination-blue a {
-    border-radius: 9999px !important;
-    padding: 0.4rem 0.7rem !important;
-}
-
-.pagination-blue .active span {
-    background-color: #2563eb !important;
-    border-color: #2563eb !important;
-    color: white !important;
-}
-</style>
-
 @endsection

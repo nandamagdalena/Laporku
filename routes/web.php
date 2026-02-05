@@ -7,53 +7,54 @@ use App\Http\Controllers\IndexUserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AspirationController;
 
-// Public Routes
-// Home
 Route::get('/', function () {
-    return view('welcome');
+
+    if (!auth()->check()) {
+        return redirect()->route('login');
+    }
+
+    return match (auth()->user()->role) {
+        'admin' => redirect()->route('admin.dashboard'),
+        'user'  => redirect()->route('user.dashboard'),
+        default => redirect()->route('login'),
+    };
 });
 
-// Register
-Route::get('/register', [AuthController::class, 'registerForm']);
-Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.process');
 
-// Login
-Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
+    Route::get('/register', [AuthController::class, 'registerForm'])->name('register.form');
+    Route::post('/register', [AuthController::class, 'register'])->name('register');
+});
 
-// Logout
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
-// Protected Routes
 Route::middleware('auth')->group(function () {
-
-    // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // ADMIN
+    // Admin Routes
     Route::middleware('role:admin')->prefix('admin')->group(function () {
-        Route::get('/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('admin.dashboard');
-
+        Route::get('/dashboard', fn () => view('admin.dashboard'))->name('admin.dashboard');
         Route::get('/daftarpengguna', [IndexUserController::class, 'index'])->name('admin.users');
-        Route::delete('/daftarpengguna/{id}', [IndexUserController::class, 'destroy'])->name('admin.usersdelete');
+        Route::delete('/daftarpengguna/{id}', [IndexUserController::class, 'destroy'])->name('users.delete');
 
-        //CATEGORY MANAGEMENT
+        // Category Management
         Route::get('/categories', [CategoryController::class, 'index'])->name('category.index');
         Route::post('/categories', [CategoryController::class, 'store'])->name('category.store');
         Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('category.update');
         Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('category.destroy');
+
+        // Aspiration Management
+        Route::get('/aspirations', [AspirationController::class, 'index'])->name('aspiration.index');
+        Route::get('/aspirations/{aspiration}', [AspirationController::class, 'show'])->name('aspiration.show');
     });
 
-    // USER
-    Route::middleware('role:user')->group(function () {
-        Route::get('/user/dashboard', function () {
-            return view('user.dashboard');
-        })->name('user.dashboard');
-
+    // User Routes
+    Route::middleware('role:user')->prefix('user')->group(function () {
+        Route::get('/dashboard', fn () => view('user.dashboard'))->name('user.dashboard');
         Route::get('/pengaduan', [AspirationController::class, 'create'])->name('pengaduan.create');
         Route::post('/pengaduan', [AspirationController::class, 'store'])->name('pengaduan.store');
         Route::get('/pengaduan-saya', [AspirationController::class, 'myAspiration'])->name('pengaduan.mine');

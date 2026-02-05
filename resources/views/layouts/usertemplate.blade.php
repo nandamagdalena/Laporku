@@ -20,11 +20,11 @@
 <div class="flex min-h-screen">
 
     {{-- SIDEBAR --}}
-    <aside class="w-64 bg-white border-r border-gray-200 flex flex-col">
+    <aside id="sidebar" class="w-64 bg-white flex flex-col transition-all duration-300">
 
         {{-- Logo --}}
-        <div class="h-16 flex items-center gap-2 px-6 border-b">
-            <img src="{{ asset('images/logopanjang.png') }}" class="h-8" alt="Laporku">
+        <div class="h-16 flex items-center px-6">
+            <img src="{{ asset('images/logopanjang.png') }}" alt="Laporku" class="h-14">
         </div>
 
         {{-- Menu --}}
@@ -74,41 +74,120 @@
     <div class="flex-1 flex flex-col">
 
         {{-- TOPBAR --}}
-        <header class="h-16 bg-white border-b flex items-center justify-between px-6">
-
+        <header class="h-16 bg-white flex items-center justify-between px-6">
             {{-- Left --}}
             <div class="flex items-center gap-3">
-                <button class="p-2 rounded-lg hover:bg-gray-100">
-                    <i class="fa-solid fa-bars text-gray-600"></i>
+                <button id="toggleSidebar" class="p-2 rounded-lg hover:bg-gray-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none"
+                         viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
                 </button>
             </div>
 
             {{-- Right --}}
-            <div class="flex items-center gap-4">
-                <div class="text-right leading-tight">
-                    <p class="text-sm font-semibold text-gray-800">
-                        {{ Auth::user()->name ?? 'User' }}
-                    </p>
-                    <p class="text-xs text-gray-500">
-                        {{ Auth::user()->email ?? 'user@email.com' }}
-                    </p>
-                </div>
+            <div class="relative">
+                <button
+                    onclick="toggleProfile()"
+                    class="flex items-center gap-4 focus:outline-none">
 
-                <img
-                    src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name ?? 'User') }}&background=2563eb&color=fff"
-                    class="w-9 h-9 rounded-full"
-                    alt="Avatar"
-                >
+                    <div class="text-right leading-tight">
+                        <p class="text-sm font-semibold text-gray-800">
+                            {{ Auth::user()->name }}
+                        </p>
+                        <p class="text-xs text-gray-500">
+                            {{ Auth::user()->email }}
+                        </p>
+                    </div>
+
+                    <img
+                        src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=2563eb&color=fff"
+                        class="w-9 h-9 rounded-full"
+                        alt="Avatar"
+                    >
+                </button>
+
+                {{-- DROPDOWN PROFILE --}}
+                <div
+                    id="profileDropdown"
+                    class="hidden absolute right-0 mt-4 w-80 bg-white rounded-2xl shadow-xl z-50"/>
+
+                    {{-- CARD CONTENT --}}
+                    <div class="p-6">
+
+                        {{-- AVATAR --}}
+                        <div class="flex items-center gap-4">
+                            <img
+                                src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=ef4444&color=fff"
+                                class="w-14 h-14 rounded-full"
+                                alt="Avatar"
+                            >
+
+                            <div>
+                                <p class="text-base font-semibold text-gray-800">
+                                    {{ Auth::user()->name }}
+                                </p>
+                                <p class="text-sm text-gray-500 flex items-center gap-2">
+                                    <i class="fa-solid fa-envelope"></i>
+                                    {{ Auth::user()->email }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <hr class="my-5 opacity-5">
+
+                        {{-- EDIT PROFIL --}}
+                        <a
+                            href="{{ route('profile.edit') }}"
+                            class="block w-full text-center bg-blue-50 text-blue-600 py-3 rounded-xl font-semibold hover:bg-blue-100 transition">
+                            Edit Profil
+                        </a>
+
+                        {{-- LOGOUT --}}
+                        <form method="POST" action="{{ route('logout') }}" class="mt-4">
+                            @csrf
+                            <button
+                                type="submit"
+                                class="w-full flex items-center justify-center gap-2 bg-red-50 text-red-600 py-3 rounded-xl font-semibold hover:bg-red-100 transition">
+                                Logout
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
             </div>
         </header>
 
-        {{-- CONTENT --}}
-        <main class="flex-1 p-6">
+        {{-- CONTENT (kosong, siap diisi) --}}
+        <main class="p-6">
             @yield('content')
         </main>
 
     </div>
 </div>
+<script>
+    function toggleProfile() {
+        document.getElementById('profileDropdown')
+            .classList.toggle('hidden');
+    }
 
+    // klik di luar = nutup
+    document.addEventListener('click', function (e) {
+        const dropdown = document.getElementById('profileDropdown');
+        if (!e.target.closest('.relative')) {
+            dropdown.classList.add('hidden');
+        }
+    });
+
+    //sidebar
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('-ml-64');
+    });
+</script>
 </body>
 </html>

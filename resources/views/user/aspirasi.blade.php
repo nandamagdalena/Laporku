@@ -125,9 +125,9 @@
                         type="button"
                         onclick="removeImage()"
                         id="removeBtn"
-                        class="hidden absolute top-2 right-2
-                               bg-red-500 text-white w-6 h-6
-                               rounded-full items-center justify-center text-xs"
+                        class="hidden absolute top-2 right-2 z-20
+                            bg-red-500 text-white w-6 h-6
+                            rounded-full items-center justify-center text-xs"
                     >
                         ✕
                     </button>
@@ -200,21 +200,14 @@
             </div>
 
             {{-- Button --}}
-            <button
-                onclick="redirectToRiwayat()"
+            <a
+                href="{{ route('pengaduan.mine') }}"
                 class="inline-block mt-2 px-6 py-2
                     bg-green-500 hover:bg-green-600
                     text-white rounded-lg text-sm"
             >
                 OK
-            </button>
-
-            {{-- JS --}}
-            <script>
-            function redirectToRiwayat() {
-                window.location.href = "{{ route('pengaduan.mine') }}";
-            }
-            </script>
+            </a>
         </div>
     </div>
     @endif
