@@ -22,12 +22,12 @@ return new class extends Migration
                   ->constrained('categories')
                   ->cascadeOnDelete();
             // Data utama
-            $table->string('nama');
-            $table->date('tanggal');
-            $table->string('lokasi');
-            $table->text('keterangan');
+            $table->string('name');
+            $table->date('date');
+            $table->string('location');
+            $table->text('description');
             // Bukti gambar
-            $table->string('bukti')->nullable();
+            $table->string('image')->nullable();
             // Status pengaduan
             $table->enum('status', [
                 'menunggu',
@@ -35,6 +35,7 @@ return new class extends Migration
                 'selesai',
                 'ditolak'
             ])->default('menunggu');
+            $table->text('response')->nullable();
             $table->timestamps();
         });
     }

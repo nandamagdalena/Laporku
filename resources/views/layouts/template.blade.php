@@ -35,7 +35,7 @@
 <div class="flex min-h-screen">
 
     {{-- SIDEBAR --}}
-    <aside class="w-64 bg-white border-r border-gray-200 flex flex-col">
+    <aside id= "sidebar" class="w-64 bg-white border-r border-gray-200 flex flex-col duration-300">
         {{-- Logo --}}
         <div class="h-16 flex items-center px-6">
             <img src="{{ asset('images/logopanjang.png') }}" alt="Laporku" class="h-14">
@@ -46,13 +46,12 @@
 
             {{-- dashboard --}}
             <div>
-                <p class="text-xs text-gray-400 uppercase mb-2">Dashboard</p>
-
+                <p class="text-xs font-bold uppercase mb-2 text-gray-900">Dashboard</p>
                 <a href="{{ route('admin.dashboard') }}"
-                    class="flex items-center px-3 py-2 rounded-lg
+                    class="flex items-center gap-3 px-4 py-2 rounded-xl
                     {{ request()->routeIs('admin.dashboard')
-                            ? 'bg-blue-50 text-blue-600 font-medium'
-                            : 'hover:bg-gray-100 text-gray-700' }}">
+                            ? 'bg-blue-50 text-blue-700 font-semibold'
+                            : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900' }}">
                         <i class="fa-solid fa-house mr-1.5"></i>
                         Dashboard
                 </a>
@@ -60,12 +59,12 @@
 
             {{-- daftar pengguna --}}
             <div>
-                <p class="text-xs text-gray-400 uppercase mb-2">Daftar Pengguna</p>
+                <p class="text-xs font-bold uppercase mb-2 text-gray-900">Daftar Pengguna</p>
                 <a href="{{ route('admin.users') }}"
-                        class="flex items-center px-3 py-2 rounded-lg
+                        class="flex items-center gap-3 px-4 py-2 rounded-xl
                         {{ request()->routeIs('admin.users')
-                                ? 'bg-blue-50 text-blue-600 font-medium'
-                                : 'hover:bg-gray-100 text-gray-700' }}">
+                                ? 'bg-blue-50 text-blue-700 font-semibold'
+                                : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900' }}">
                             <i class="fa-solid fa-users mr-1.5"></i>
                             Daftar Pengguna
                 </a>
@@ -73,13 +72,13 @@
 
             {{-- daftar pengaduan --}}
             <div>
-                <p class="text-xs text-gray-400 uppercase mb-2">Daftar Pengaduan</p>
+                <p class="text-xs font-bold uppercase mb-2 text-gray-900">Daftar Pengaduan</p>
                 <a href="{{ route('aspiration.index') }}"
-                        class="flex items-center px-3 py-2 rounded-lg
-                        {{ request()->routeIs('admin.users')
-                                ? 'bg-blue-50 text-blue-600 font-medium'
-                                : 'hover:bg-gray-100 text-gray-700' }}">
-                            <i class="fa-solid fa-users mr-1.5"></i>
+                        class="flex items-center gap-3 px-4 py-2 rounded-xl
+                        {{ request()->routeIs('aspiration.index')
+                                ? 'bg-blue-50 text-blue-700 font-semibold'
+                                : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900' }}">
+                            <i class="fa-solid fa-file-circle-exclamation mr-1.5"></i>
                             Daftar Pengaduan
                 </a>
             </div>
@@ -91,7 +90,7 @@
                 class="flex items-center gap-3 px-4 py-2 rounded-xl
                 {{ request()->routeIs('category.index')
                         ? 'bg-blue-50 text-blue-700 font-semibold'
-                        : 'text-gray-500 hover:bg-gray-100 hover:text-gray-700' }}">
+                        : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900' }}">
 
                     <i class="fa-solid fa-folder text-base"></i>
                     <span>Kategori</span>
@@ -107,7 +106,7 @@
         <header class="h-16 bg-white flex items-center justify-between px-6">
             {{-- Left --}}
             <div class="flex items-center gap-3">
-                <button class="p-2 rounded-lg hover:bg-gray-100">
+                <button id="toggleSidebar" class="p-2 rounded-lg hover:bg-gray-100">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none"
                          viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -210,6 +209,14 @@
         if (!e.target.closest('.relative')) {
             dropdown.classList.add('hidden');
         }
+    });
+
+    //sidebar
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('-ml-64');
     });
 </script>
 

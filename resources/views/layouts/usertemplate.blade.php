@@ -32,13 +32,13 @@
 
             {{-- Dashboard --}}
             <div>
-                <p class="text-xs text-black-400 uppercase mb-2">Dashboard</p>
+                <p class="text-xs font-bold uppercase mb-2 text-gray-900">Dashboard</p>
 
                 <a href="{{ route('user.dashboard') }}"
-                class="flex items-center px-3 py-2 rounded-lg
+                class="flex items-center gap-3 px-4 py-2 rounded-xl
                 {{ request()->routeIs('user.dashboard')
-                        ? 'bg-blue-50 text-blue-600 font-medium'
-                        : 'hover:bg-gray-100 text-gray-700' }}">
+                        ? 'bg-blue-50 text-blue-700 font-semibold'
+                        : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900' }}">
                     <i class="fa-solid fa-house mr-1.5"></i>
                     Dashboard
                 </a>
@@ -46,22 +46,21 @@
 
             {{-- Pengaduan --}}
             <div>
-                <p class="text-xs uppercase text-black-400 mb-2">Pengaduan</p>
-
+                <p class="text-xs font-bold uppercase mb-2 text-gray-900">Pengaduan</p>
                 <a href="{{ route('pengaduan.create') }}"
-                class="flex items-center gap-3 px-3 py-2 rounded-lg
+                class="flex items-center gap-3 px-4 py-2 rounded-xl
                 {{ request()->routeIs('pengaduan.create')
-                        ? 'bg-blue-50 text-blue-600 font-medium'
-                        : 'hover:bg-gray-100 text-gray-700' }}">
+                        ? 'bg-blue-50 text-blue-700 font-semibold'
+                        : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900' }}">
                     <i class="fa-regular fa-file-lines"></i>
                     Form Pengaduan
                 </a>
 
                 <a href="{{ route('pengaduan.mine') }}"
-                class="flex items-center gap-3 px-3 py-2 rounded-lg
+                class="flex items-center gap-3 px-4 py-2 rounded-xl
                 {{ request()->routeIs('pengaduan.mine')
-                        ? 'bg-blue-50 text-blue-600 font-medium'
-                        : 'hover:bg-gray-100 text-gray-700' }}">
+                        ? 'bg-blue-50 text-blue-700 font-semibold'
+                        : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900' }}">
                     <i class="fa-solid fa-clock-rotate-left"></i>
                     Riwayat Pengaduan
                 </a>

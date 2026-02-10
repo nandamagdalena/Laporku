@@ -15,8 +15,8 @@
         </div>
     </div>
 
-    <!-- CARD -->
-    <div class="bg-white rounded-xl shadow p-6">
+        <!-- CARD -->
+        <div class="bg-white rounded-xl shadow p-6">
 
         <!-- SEARCH + SORT -->
         <div class="flex items-center justify-between mb-5">

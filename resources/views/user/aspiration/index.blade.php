@@ -95,39 +95,48 @@
                     <th class="px-4 py-3 text-center font-medium">Aksi</th>
                 </tr>
             </thead>
+
             <tbody class="divide-y divide-gray-100">
 
                 @forelse ($aspirations as $item)
                 <tr class="hover:bg-gray-50 transition">
                     <td class="px-4 py-3 text-gray-700">
-                        {{ $loop->iteration + ($aspirations->currentPage()-1)*$aspirations->perPage() }}
+                        {{ $loop->iteration + ($aspirations->currentPage() - 1) * $aspirations->perPage() }}
                     </td>
+
                     <td class="px-4 py-3 text-gray-800 font-medium">
-                        {{ $item->nama }}
+                        {{ $item->name }}
                     </td>
+
                     <td class="px-4 py-3 text-gray-700">
-                        {{ $item->tanggal->format('d-m-Y') }}
+                        {{ \Carbon\Carbon::parse($item->tanggal)->format('d-m-Y') }}
                     </td>
+
                     <td class="px-4 py-3 text-gray-700">
-                        {{ $item->category->name }}
+                        {{ $item->category?->name ?? '-' }}
                     </td>
+
                     <td class="px-4 py-3 text-gray-700">
-                        {{ $item->lokasi }}
+                        {{ $item->location }}
                     </td>
 
                     {{-- STATUS --}}
                     <td class="px-4 py-3 text-center">
                         @if ($item->status === 'menunggu')
-                            <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-600">
+                            <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-700">
                                 Menunggu
                             </span>
-                        @elseif ($item->status === 'proses')
-                            <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-orange-100 text-orange-600">
-                                Proses
+                        @elseif ($item->status === 'diproses')
+                            <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-700">
+                                Diproses
+                            </span>
+                        @elseif ($item->status === 'selesai')
+                            <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700">
+                                Selesai
                             </span>
                         @else
-                            <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-600">
-                                Selesai
+                            <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-700">
+                                Ditolak
                             </span>
                         @endif
                     </td>
@@ -135,8 +144,9 @@
                     {{-- AKSI --}}
                     <td class="px-4 py-3 text-center">
                         <a
-                            {{-- href="{{ route('pengaduan.show', $item->id) }}" --}}
-                            class="inline-flex items-center justify-center w-8 h-8 rounded-full border border-blue-500 text-blue-600 hover:bg-blue-50 transition"
+                            href="{{ route('pengaduan.show', $item->id) }}"
+                            class="inline-flex items-center justify-center w-8 h-8 rounded-full
+                                border border-blue-500 text-blue-600 hover:bg-blue-50 transition"
                             title="Lihat Detail"
                         >
                             <i class="fa-solid fa-eye"></i>
@@ -150,7 +160,6 @@
                     </td>
                 </tr>
                 @endforelse
-
             </tbody>
         </table>
     </div>

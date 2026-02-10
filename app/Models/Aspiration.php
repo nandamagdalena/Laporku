@@ -9,16 +9,17 @@ class Aspiration extends Model
     protected $fillable = [
         'user_id',
         'category_id',
-        'nama',
-        'tanggal',
-        'lokasi',
-        'keterangan',
-        'bukti',
+        'name',
+        'date',
+        'location',
+        'description',
+        'image',
         'status',
+        'response'
     ];
 
     protected $casts = [
-        'tanggal' => 'datetime',
+        'date' => 'datetime',
     ];
 
     public function user()

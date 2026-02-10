@@ -64,24 +64,24 @@
                                 {{ $loop->iteration + $aspirations->firstItem() - 1 }}
                             </td>
                             <td class="px-3 py-2">
-                                {{ $item->user->name ?? $item->nama }}
+                                {{ $item->name ?? $item->nama }}
                             </td>
                             <td class="px-3 py-2 text-center">
-                                {{ \Carbon\Carbon::parse($item->tanggal)->format('d-m-Y') }}
+                                {{ \Carbon\Carbon::parse($item->date)->format('d-m-Y') }}
                             </td>
                             <td class="px-3 py-2 text-center">
                                 {{ $item->category->name }}
                             </td>
                             <td class="px-3 py-2">
-                                {{ $item->lokasi }}
+                                {{ $item->location }}
                             </td>
                             <td class="px-3 py-2 text-center">
                                 @php
                                     $statusClass = match($item->status) {
-                                        'menunggu' => 'bg-red-100 text-red-600',
-                                        'diproses' => 'bg-yellow-100 text-yellow-700',
+                                        'menunggu' => 'bg-yellow-100 text-yellow-600',
+                                        'diproses' => 'bg-blue-100 text-blue-700',
                                         'selesai'  => 'bg-green-100 text-green-600',
-                                        'ditolak'  => 'bg-gray-200 text-gray-600',
+                                        'ditolak'  => 'bg-red-200 text-red-600',
                                     };
                                 @endphp
                                 <span class="px-3 py-1 rounded-full text-xs font-semibold {{ $statusClass }}">
@@ -89,10 +89,12 @@
                                 </span>
                             </td>
                             <td class="px-3 py-2 text-center">
-                                <a href="{{ route('aspiration.show', $item->id) }}"
-                                   class="inline-flex items-center justify-center w-8 h-8 rounded-full border border-blue-500 text-blue-600 hover:bg-blue-50">
+                               <a href="{{ route('aspiration.show', $item->id) }}"
+                                class="inline-flex items-center justify-center w-8 h-8 rounded-full
+                                        border border-blue-500 text-blue-600 hover:bg-blue-50">
                                     <i class="fa-solid fa-eye"></i>
                                 </a>
+
                             </td>
                         </tr>
                         @empty

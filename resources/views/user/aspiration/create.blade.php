@@ -25,6 +25,11 @@
         </p>
     </div>
 
+    {{-- <div class="mb-3 text-xs text-red-600">
+        User ID: {{ auth()->id() }} <br>
+        Role: {{ auth()->user()->role ?? 'null' }}
+    </div> --}}
+
     <form action="{{ route('pengaduan.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
@@ -38,7 +43,7 @@
                     <label class="text-sm font-medium text-gray-700">Nama</label>
                     <input
                         type="text"
-                        name="nama"
+                        name="name"
                         placeholder="Isi nama Anda"
                         class="w-full mt-1 px-3 py-2 text-sm
                                border border-gray-300 rounded-lg
@@ -51,7 +56,7 @@
                     <label class="text-sm font-medium text-gray-700">Tanggal</label>
                     <input
                         type="date"
-                        name="tanggal"
+                        name="date"
                         class="w-full mt-1 px-3 py-2 text-sm
                                border border-gray-300 rounded-lg
                                focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -81,7 +86,7 @@
                     <label class="text-sm font-medium text-gray-700">Lokasi</label>
                     <input
                         type="text"
-                        name="lokasi"
+                        name="location"
                         placeholder="Isi keterangan lokasi"
                         class="w-full mt-1 px-3 py-2 text-sm
                                border border-gray-300 rounded-lg
@@ -93,7 +98,7 @@
                 <div>
                     <label class="text-sm font-medium text-gray-700">Keterangan</label>
                     <textarea
-                        name="keterangan"
+                        name="description"
                         rows="4"
                         placeholder="Isi keterangan"
                         class="w-full mt-1 px-3 py-2 text-sm
@@ -135,7 +140,7 @@
                     {{-- Input --}}
                     <input
                         type="file"
-                        name="bukti"
+                        name="image"
                         accept="image/*"
                         onchange="previewImage(this)"
                         class="absolute inset-0 opacity-0 cursor-pointer"
@@ -233,7 +238,7 @@ function removeImage() {
     const preview = document.getElementById('preview')
     const uploadText = document.getElementById('uploadText')
     const removeBtn = document.getElementById('removeBtn')
-    const input = document.querySelector('input[name="bukti"]')
+    const input = document.querySelector('input[name="image"]')
 
     input.value = ''
     preview.classList.add('hidden')

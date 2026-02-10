@@ -50,13 +50,17 @@ Route::middleware('auth')->group(function () {
         // Aspiration Management
         Route::get('/aspirations', [AspirationController::class, 'index'])->name('aspiration.index');
         Route::get('/aspirations/{aspiration}', [AspirationController::class, 'show'])->name('aspiration.show');
+        Route::put('/aspirations/{aspiration}', [AspirationController::class, 'update'])->name('aspiration.update');
     });
 
     // User Routes
     Route::middleware('role:user')->prefix('user')->group(function () {
         Route::get('/dashboard', fn () => view('user.dashboard'))->name('user.dashboard');
+
         Route::get('/pengaduan', [AspirationController::class, 'create'])->name('pengaduan.create');
         Route::post('/pengaduan', [AspirationController::class, 'store'])->name('pengaduan.store');
         Route::get('/pengaduan-saya', [AspirationController::class, 'myAspiration'])->name('pengaduan.mine');
+        Route::get('/pengaduan/{aspiration}', [AspirationController::class, 'showUser'])->name('pengaduan.show');
+        Route::delete('/pengaduan/{aspiration}', [AspirationController::class, 'destroy'])->name('pengaduan.destroy');
     });
 });
