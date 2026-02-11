@@ -22,7 +22,7 @@
         <div>
             <h2 class="text-lg font-semibold text-gray-800">Laporan Pengaduan</h2>
             <p class="text-sm text-gray-500">
-                Tanggal laporan pengaduan
+                {{ \Carbon\Carbon::parse($aspiration->date)->format('d M Y') }}
             </p>
         </div>
 
@@ -40,36 +40,36 @@
         <div class="md:col-span-2 space-y-4 text-sm">
 
             <div>
-                <p class="text-gray-500">Nama</p>
-                <p class="font-medium text-gray-800">
+                <p class="font-semibold text-gray-800 mb-1">Nama</p>
+                <p class="font-medium text-gray-500 wrap-break-word">
                     {{ $aspiration->name }}
                 </p>
             </div>
 
             <div>
-                <p class="text-gray-500">Tanggal</p>
-                <p class="font-medium text-gray-800">
+                <p class="font-semibold text-gray-800 mb-1">Tanggal</p>
+                <p class="font-medium text-gray-500 wrap-break-word">
                     {{ \Carbon\Carbon::parse($aspiration->tanggal)->format('d-m-Y') }}
                 </p>
             </div>
 
             <div>
-                <p class="text-gray-500">Kategori</p>
-                <p class="font-medium text-gray-800">
+                <p class="font-semibold text-gray-800 mb-1">Kategori</p>
+                <p class="font-medium text-gray-500 wrap-break-word">
                     {{ $aspiration->category?->name ?? '-' }}
                 </p>
             </div>
 
             <div>
-                <p class="text-gray-500">Lokasi</p>
-                <p class="font-medium text-gray-800">
+                <p class="font-semibold text-gray-800 mb-1">Lokasi</p>
+                <p class="font-medium text-gray-500 wrap-break-word">
                     {{ $aspiration->location }}
                 </p>
             </div>
 
             <div>
-                <p class="text-gray-500 mb-1">Keterangan</p>
-                <p class="text-gray-700 leading-relaxed">
+                <p class="font-semibold text-gray-800 mb-1">Keterangan</p>
+                <p class="font-medium text-gray-500 wrap-break-word">
                     {{ $aspiration->description }}
                 </p>
             </div>
@@ -97,7 +97,7 @@
                     <textarea
                         name="response"
                         rows="4"
-                        class="w-full border rounded-xl p-3 text-sm"
+                        class="w-full border rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     >{{ old('response', $aspiration->response) }}</textarea>
                 </div>
 

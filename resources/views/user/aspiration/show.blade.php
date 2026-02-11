@@ -22,7 +22,7 @@
         <div>
             <h2 class="text-lg font-semibold text-gray-800">Laporan Pengaduan</h2>
             <p class="text-sm text-gray-500">
-                {{ \Carbon\Carbon::parse($aspiration->tanggal)->format('d M Y') }}
+                {{ \Carbon\Carbon::parse($aspiration->date)->format('d M Y') }}
             </p>
         </div>
 
@@ -45,35 +45,35 @@
         <div class="md:col-span-2 space-y-4 text-sm">
 
             <div>
-                <p class="text-gray-800">Nama Pelapor</p>
+                <p class="font-semibold text-gray-800">Nama Pelapor</p>
                 <p class="font-medium text-gray-500">
                     {{ $aspiration->name }}
                 </p>
             </div>
 
             <div>
-                <p class="text-gray-800">Kategori</p>
+                <p class="font-semibold text-gray-800">Kategori</p>
                 <p class="font-medium text-gray-500">
                     {{ $aspiration->category?->name ?? '-' }}
                 </p>
             </div>
 
             <div>
-                <p class="text-gray-800">Lokasi</p>
+                <p class="font-semibold text-gray-800">Lokasi</p>
                 <p class="font-medium text-gray-500">
                     {{ $aspiration->location }}
                 </p>
             </div>
 
             <div>
-                <p class="text-gray-800 mb-1">Keterangan</p>
-                <p class="font-medium text-gray-500">
+                <p class="font-semibold text-gray-800 mb-1">Keterangan</p>
+                <p class="font-medium text-gray-500 wrap-break-word">
                     {{ $aspiration->description }}
                 </p>
             </div>
 
             <div>
-                <p class="text-gray-800 mb-1">Status</p>
+                <p class="font-semibold text-gray-800 mb-1">Status</p>
                 @php
                     $statusColor = match($aspiration->status) {
                         'menunggu' => 'bg-yellow-100 text-yellow-700',
@@ -113,8 +113,8 @@
         </div>
 
         {{-- TANGGAPAN --}}
-        <div>
-            <p class="text-gray-800 mb-1">Tanggapan</p>
+        <div class=" md:col-span-3">
+            <p class="font-semibold text-gray-800 mb-1">Tanggapan</p>
 
             @if ($aspiration->response)
                 <div class="border border-gray-200 rounded-xl p-4 text-gray-700 text-sm leading-relaxed bg-gray-50">
