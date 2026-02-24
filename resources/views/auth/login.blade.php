@@ -98,7 +98,6 @@
                             </button>
                         </div>
 
-
                         <!-- Register Link -->
                         <div class="text-center">
                             <p class="text-sm text-gray-600">

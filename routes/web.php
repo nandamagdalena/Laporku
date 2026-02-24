@@ -6,6 +6,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\IndexUserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AspirationController;
+use App\Http\Controllers\DashboardAdminController;
+use App\Http\Controllers\DashboardUserController;
 
 Route::get('/', function () {
 
@@ -37,7 +39,9 @@ Route::middleware('auth')->group(function () {
 
     // Admin Routes
     Route::middleware('role:admin')->prefix('admin')->group(function () {
-        Route::get('/dashboard', fn () => view('admin.dashboard'))->name('admin.dashboard');
+        // Route::get('/dashboard', fn () => view('admin.dashboard'))->name('admin.dashboard');
+        Route::get('/dashboard', [DashboardAdminController::class, 'index'])->name('admin.dashboard');
+
         Route::get('/daftarpengguna', [IndexUserController::class, 'index'])->name('admin.users');
         Route::delete('/daftarpengguna/{id}', [IndexUserController::class, 'destroy'])->name('users.delete');
 
@@ -51,11 +55,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/aspirations', [AspirationController::class, 'index'])->name('aspiration.index');
         Route::get('/aspirations/{aspiration}', [AspirationController::class, 'show'])->name('aspiration.show');
         Route::put('/aspirations/{aspiration}', [AspirationController::class, 'update'])->name('aspiration.update');
+        Route::get('/aspirations/{id}/export', [AspirationController::class, 'export'])->name('aspirations.export');
+
     });
 
     // User Routes
     Route::middleware('role:user')->prefix('user')->group(function () {
-        Route::get('/dashboard', fn () => view('user.dashboard'))->name('user.dashboard');
+        // Route::get('/dashboard', fn () => view('user.dashboard'))->name('user.dashboard');
+        Route::get('/dashboard', [DashboardUserController::class, 'index'])->name('user.dashboard');
 
         Route::get('/pengaduan', [AspirationController::class, 'create'])->name('pengaduan.create');
         Route::post('/pengaduan', [AspirationController::class, 'store'])->name('pengaduan.store');

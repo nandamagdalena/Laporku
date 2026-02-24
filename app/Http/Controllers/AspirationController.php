@@ -6,6 +6,8 @@ use App\Models\Aspiration;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Http\Requests\StoreAspirationRequest;
 
 class AspirationController extends Controller
 {
@@ -56,18 +58,10 @@ class AspirationController extends Controller
     }
 
     // USER - STORE
-    public function store(Request $request)
+    public function store(StoreAspirationRequest $request)
     {
-        $request->validate([
-            'name'        => 'required',
-            'date'        => 'required|date',
-            'category_id' => 'required',
-            'location'    => 'required',
-            'description' => 'required',
-            'image'       => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
-        ]);
-
         $image = null;
+
         if ($request->hasFile('image')) {
             $image = $request->file('image')->store('bukti', 'public');
         }
@@ -140,8 +134,14 @@ class AspirationController extends Controller
         //
     }
 
-    public function updateStatus(Request $request, Aspiration $aspiration)
+    public function export($id)
     {
-        //
+        $aspiration = Aspiration::with('user', 'category')->findOrFail($id);
+
+        $pdf = Pdf::loadView('admin.aspiration.export', compact('aspiration'))
+                ->setPaper('A4', 'portrait');
+
+        return $pdf->download('laporan-pengaduan-'.$aspiration->id.'.pdf');
     }
+
 }

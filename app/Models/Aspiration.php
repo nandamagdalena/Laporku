@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Aspiration extends Model
 {
+    //yang boleh diisi
     protected $fillable = [
         'user_id',
         'category_id',
@@ -18,10 +19,12 @@ class Aspiration extends Model
         'response'
     ];
 
+    //biar tanggal sesuai format
     protected $casts = [
         'date' => 'datetime',
     ];
 
+    //relasi
     public function user()
     {
         return $this->belongsTo(User::class);

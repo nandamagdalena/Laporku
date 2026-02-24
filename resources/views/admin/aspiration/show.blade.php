@@ -26,11 +26,10 @@
             </p>
         </div>
 
-        <button
-            class="flex items-center gap-2 px-4 py-2 border rounded-xl text-sm text-gray-600 hover:bg-gray-50">
-            <i class="fa-solid fa-file-export"></i>
-            Ekspor
-        </button>
+        <a href="{{ route('aspirations.export', $aspiration->id) }}"
+            class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">
+            <i class="fas fa-file-export mr-2"></i> Ekspor
+        </a>
     </div>
 
     {{-- CONTENT --}}
@@ -43,6 +42,13 @@
                 <p class="font-semibold text-gray-800 mb-1">Nama</p>
                 <p class="font-medium text-gray-500 wrap-break-word">
                     {{ $aspiration->name }}
+                </p>
+            </div>
+
+            <div>
+                <p class="font-semibold text-gray-800 mb-1">Username</p>
+                <p class="font-medium text-gray-500 wrap-break-word">
+                    {{ $aspiration->user?->name }}
                 </p>
             </div>
 
