@@ -114,7 +114,7 @@
 
         <!-- Right Side - Welcome Section -->
         <div class="hidden lg:flex lg:w-1/2 bg-linear-to-br from-blue-500 to-[#1ac8db] items-center justify-center p-12">
-            <div class="max-w-lg text-white">
+            <div class="max-w-lg text-white text-center">
                 <img class="mx-auto h-96 w-auto mb-3" src="{{ asset('images/iconlogin.png') }}" alt="Laporku Logo">
                 <h2 class="text-4xl font-bold mb-4">Selamat datang di Laporku!</h2>
                 <p class="text-lg text-cyan-50">

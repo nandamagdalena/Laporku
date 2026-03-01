@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/aspirations/{aspiration}', [AspirationController::class, 'show'])->name('aspiration.show');
         Route::put('/aspirations/{aspiration}', [AspirationController::class, 'update'])->name('aspiration.update');
         Route::get('/aspirations/{id}/export', [AspirationController::class, 'export'])->name('aspirations.export');
+        Route::get('/aspirations-export-excel', [AspirationController::class, 'exportExcel'])->name('aspirations.export.excel');
 
     });
 

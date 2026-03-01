@@ -5,13 +5,20 @@
 @section('content')
 
 {{-- HEADER --}}
-<div class="mb-6">
-    <h1 class="text-xl font-semibold text-gray-800">Detail Pengaduan</h1>
-    <p class="text-sm text-gray-500 mt-1">
-        <a href="{{ route('admin.dashboard') }}" class="hover:text-blue-600">Beranda</a> /
-        <a href="{{ route('aspiration.index') }}" class="hover:text-blue-600">Daftar Pengaduan</a> /
-        <span class="text-red-500">Detail Pengaduan</span>
-    </p>
+<div class="mb-6 flex items-center justify-between">
+
+    <div>
+        <h1 class="text-xl font-semibold text-gray-800">Detail Pengaduan</h1>
+        <p class="text-sm text-gray-500 mt-1">
+            <a class="text-[#00afea]">Lihat Pengaduan Lebih Lengkap dan Rinci</a>
+        </p>
+    </div>
+
+    <a href="{{ route('aspiration.index') }}"
+       class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition">
+        <i class="fas fa-arrow-left mr-2"></i> Kembali
+    </a>
+
 </div>
 
 {{-- CARD --}}
@@ -27,8 +34,8 @@
         </div>
 
         <a href="{{ route('aspirations.export', $aspiration->id) }}"
-            class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">
-            <i class="fas fa-file-export mr-2"></i> Ekspor
+            class="px-4 py-2 bg-[#00afea] text-white rounded-lg hover:bg-gray-300 hover:text-white">
+                <i class="fas fa-file-export mr-2"></i> Ekspor
         </a>
     </div>
 

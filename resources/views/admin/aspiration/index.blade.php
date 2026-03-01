@@ -54,7 +54,7 @@
     </div>
 
     {{-- Export --}}
-    <a href="#"
+    <a href="{{ route('aspirations.export.excel') }}"
         class="inline-flex items-center gap-2 bg-[#00afea] hover:bg-blue-400
                text-white text-sm px-4 py-2.5 rounded-xl shadow-sm
                transition duration-200">
@@ -68,7 +68,7 @@
             <path stroke-linecap="round" stroke-linejoin="round"
                 d="M12 4v12m0 0l-3-3m3 3l3-3M4 20h16"/>
         </svg>
-        Export
+        Ekspor
     </a>
 
 </div>

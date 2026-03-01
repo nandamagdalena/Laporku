@@ -12,7 +12,7 @@
     </div>
 
     <button onclick="openModal()"
-            class="bg-[#02779E] hover:bg-blue-400 text-white px-4 py-2 rounded-lg text-sm">
+            class="bg-green-400 hover:bg-blue-400 text-white px-4 py-2 rounded-lg text-sm">
         <i class="fa-solid fa-plus mr-1"></i>
         Tambah Kategori
     </button>
@@ -57,7 +57,7 @@
                                 type="button"
                                 onclick="openDeleteModal('{{ route('category.destroy', $category) }}')"
                                 class="text-red-500 hover:text-red-600">
-                                <i class="fa-solid fa-trash"></i>
+                                <i class="fa-solid fa-trash-can"></i>
                             </button>
                         </form>
 
