@@ -8,9 +8,7 @@
     <div>
         <h1 class="text-2xl font-semibold text-gray-800">Daftar Pengaduan</h1>
         <div class="text-sm text-gray-500 mt-1">
-            <span class="text-gray-400">Beranda</span>
-            <span class="mx-1">›</span>
-            <span class="text-red-500">Daftar Penggaduan</span>
+            <span class="text-[#00afea]">Kelola Keseluruhan Pengaduan</span>
         </div>
     </div>
 
@@ -19,34 +17,66 @@
             <!-- Search -->
             <div class="flex items-center justify-between mb-5">
 
-            <!-- SEARCH -->
-            <form method="GET" class="relative w-80">
-                <input
-                    type="text"
-                    name="search"
-                    value="{{ request('search') }}"
-                    placeholder="Telusuri sesuatu..."
-                    class="w-full rounded-lg border border-gray-300 pl-10 pr-4 py-2 text-sm
-                        focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
+    <div class="flex items-center gap-3">
 
-                <!-- icon search -->
-                <svg class="absolute left-3 top-2.5 w-4 h-4 text-gray-400"
-                    fill="none" stroke="currentColor" stroke-width="2"
-                    viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M21 21l-4.35-4.35m1.35-5.65a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                </svg>
+        <!-- SEARCH -->
+        <form method="GET" class="relative w-80">
+            <input
+                type="text"
+                name="search"
+                value="{{ request('search') }}"
+                placeholder="Telusuri sesuatu..."
+                class="w-full rounded-lg border border-gray-300 pl-10 pr-4 py-2 text-sm
+                       focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
 
-                <!-- jaga sorting saat search -->
-                <input type="hidden" name="sort" value="{{ request('sort') }}">
-            </form>
-        </div>
+            <!-- icon search -->
+            <svg class="absolute left-3 top-2.5 w-4 h-4 text-gray-400"
+                fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M21 21l-4.35-4.35m1.35-5.65a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+
+            <!-- jaga sorting saat search -->
+            <input type="hidden" name="sort" value="{{ request('sort') }}">
+        </form>
+
+        <!-- FILTER BUTTON -->
+        <button type="button"
+            class="flex items-center justify-center w-10 h-10 rounded-lg
+                   border border-gray-300 bg-white hover:bg-gray-100
+                   transition duration-200">
+
+            <i class="fa-solid fa-sliders text-[#00afea]"></i>
+        </button>
+
+    </div>
+
+    {{-- Export --}}
+    <a href="#"
+        class="inline-flex items-center gap-2 bg-[#00afea] hover:bg-blue-400
+               text-white text-sm px-4 py-2.5 rounded-xl shadow-sm
+               transition duration-200">
+
+        <svg xmlns="http://www.w3.org/2000/svg"
+            class="w-4 h-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 4v12m0 0l-3-3m3 3l3-3M4 20h16"/>
+        </svg>
+        Export
+    </a>
+
+</div>
 
             <!-- Table -->
             <div class="overflow-hidden rounded-xl border border-gray-200">
             <table class="w-full text-sm">
-                <thead class="bg-blue-600 text-white">
+                <thead class="bg-[#02779E] text-white">
                     <tr>
                         <th class="px-3 py-3">No</th>
                         <th class="px-3 py-3">Nama</th>
@@ -91,7 +121,7 @@
                             <td class="px-3 py-2 text-center">
                                <a href="{{ route('aspiration.show', $item->id) }}"
                                 class="inline-flex items-center justify-center w-8 h-8 rounded-full
-                                        border border-blue-500 text-blue-600 hover:bg-blue-50">
+                                        border border-blue-500 text-[#02779E] hover:bg-blue-50">
                                     <i class="fa-solid fa-eye"></i>
                                 </a>
 

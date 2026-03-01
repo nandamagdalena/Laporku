@@ -8,11 +8,11 @@
 <div class="flex justify-between items-center mb-6">
     <div>
         <h1 class="text-xl font-semibold text-gray-800">Kategori</h1>
-        <p class="text-sm text-gray-500">Kelola kategori pengaduan</p>
+        <p class="text-sm text-[#00afea]">Kelola kategori pengaduan</p>
     </div>
 
     <button onclick="openModal()"
-            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm">
+            class="bg-[#02779E] hover:bg-blue-400 text-white px-4 py-2 rounded-lg text-sm">
         <i class="fa-solid fa-plus mr-1"></i>
         Tambah Kategori
     </button>
@@ -28,7 +28,7 @@
 {{-- Table --}}
 <div class="bg-white rounded-xl shadow-sm overflow-hidden">
     <table class="w-full text-sm">
-        <thead class="bg-blue-700 text-white">
+        <thead class="bg-[#02779E] text-white">
             <tr>
                 <th class="px-6 py-3 text-left">No</th>
                 <th class="px-6 py-3 text-left">Nama Kategori</th>

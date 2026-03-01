@@ -8,10 +8,10 @@
 <div class="mb-6">
     <h1 class="text-xl font-semibold text-gray-800">Detail Pengaduan</h1>
     <p class="text-sm text-gray-500 mt-1">
-        <a href="{{ route('user.dashboard') }}" class="hover:text-blue-600">Beranda</a> /
-        <a href="{{ route('pengaduan.mine') }}" class="hover:text-blue-600">Riwayat Pengaduan</a> /
-        <span class="text-red-500">Detail Pengaduan</span>
-    </p>
+            <span class="text-[#00afea]">
+                Lihat Detail Pengaduan Anda
+            </span>
+        </p>
 </div>
 
 {{-- Card --}}

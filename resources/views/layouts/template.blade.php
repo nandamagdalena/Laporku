@@ -9,7 +9,6 @@
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous"
         referrerpolicy="no-referrer"
     />
@@ -35,67 +34,70 @@
 <div class="flex min-h-screen">
 
     {{-- SIDEBAR --}}
-    <aside id= "sidebar" class="w-64 bg-white border-r border-gray-200 flex flex-col duration-300">
-        {{-- Logo --}}
-        <div class="h-16 flex items-center px-6">
-            <img src="{{ asset('images/logopanjang.png') }}" alt="Laporku" class="h-14">
-        </div>
+    <!-- DARI w-64 JADI w-80 -->
+    <aside id="sidebar" class="w-80 bg-white border-r border-gray-200 flex flex-col duration-300">
 
+        <div class="flex items-center pt-4 pl-6">
+            <img
+                src="{{ asset('images/logo2.png') }}"
+                alt="Laporku"
+                class="h-16 w-auto"
+            >
+        </div>
         {{-- Menu --}}
-        <nav class="flex-1 px-4 py-6 space-y-2 text-sm text-gray-700">
+        <!-- text-sm JADI text-base -->
+        <nav class="flex-1 px-6 py-8 space-y-4 text-base text-gray-700">
 
             {{-- dashboard --}}
             <div>
-                <p class="text-xs font-bold uppercase mb-2 text-gray-900">Dashboard</p>
+                <p class="text-sm font-bold uppercase mb-3 text-gray-900">Dashboard</p>
                 <a href="{{ route('admin.dashboard') }}"
-                    class="flex items-center gap-3 px-4 py-2 rounded-xl
+                    class="flex items-center gap-4 px-5 py-3 rounded-xl
                     {{ request()->routeIs('admin.dashboard')
-                            ? 'bg-blue-50 text-blue-700 font-semibold'
+                            ? 'bg-[#a2e8ff4c] text-[#00afea] font-semibold'
                             : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900' }}">
-                        <i class="fa-solid fa-house mr-1.5"></i>
+                        <i class="fa-solid fa-house text-lg"></i>
                         Dashboard
                 </a>
             </div>
 
-            {{-- daftar pengguna --}}
             <div>
-                <p class="text-xs font-bold uppercase mb-2 text-gray-900">Daftar Pengguna</p>
+                <p class="text-sm font-bold uppercase mb-3 text-gray-900">Daftar Pengguna</p>
                 <a href="{{ route('admin.users') }}"
-                        class="flex items-center gap-3 px-4 py-2 rounded-xl
+                        class="flex items-center gap-4 px-5 py-3 rounded-xl
                         {{ request()->routeIs('admin.users')
-                                ? 'bg-blue-50 text-blue-700 font-semibold'
+                                ? 'bg-[#a2e8ff4c] text-[#00afea] font-semibold'
                                 : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900' }}">
-                            <i class="fa-solid fa-users mr-1.5"></i>
+                            <i class="fa-solid fa-users text-lg"></i>
                             Daftar Pengguna
                 </a>
             </div>
 
-            {{-- daftar pengaduan --}}
             <div>
-                <p class="text-xs font-bold uppercase mb-2 text-gray-900">Daftar Pengaduan</p>
+                <p class="text-sm font-bold uppercase mb-3 text-gray-900">Daftar Pengaduan</p>
                 <a href="{{ route('aspiration.index') }}"
-                        class="flex items-center gap-3 px-4 py-2 rounded-xl
+                        class="flex items-center gap-4 px-5 py-3 rounded-xl
                         {{ request()->routeIs('aspiration.index')
-                                ? 'bg-blue-50 text-blue-700 font-semibold'
+                                ? 'bg-[#a2e8ff4c] text-[#00afea] font-semibold'
                                 : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900' }}">
-                            <i class="fa-solid fa-file-circle-exclamation mr-1.5"></i>
+                            <i class="fa-solid fa-file-circle-exclamation text-lg"></i>
                             Daftar Pengaduan
                 </a>
             </div>
 
-            {{-- kategori --}}
             <div>
-                <p class="text-xs font-bold uppercase mb-2 text-gray-900">Kelola Kategori</p>
+                <p class="text-sm font-bold uppercase mb-3 text-gray-900">Kelola Kategori</p>
                 <a href="{{ route('category.index') }}"
-                class="flex items-center gap-3 px-4 py-2 rounded-xl
+                class="flex items-center gap-4 px-5 py-3 rounded-xl
                 {{ request()->routeIs('category.index')
-                        ? 'bg-blue-50 text-blue-700 font-semibold'
+                        ? 'bg-[#a2e8ff4c] text-[#00afea] font-semibold'
                         : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900' }}">
 
-                    <i class="fa-solid fa-folder text-base"></i>
+                    <i class="fa-solid fa-folder text-lg"></i>
                     <span>Kategori</span>
                 </a>
             </div>
+
         </nav>
     </aside>
 
@@ -103,82 +105,81 @@
     <div class="flex-1 flex flex-col">
 
         {{-- TOPBAR --}}
-        <header class="h-16 bg-white flex items-center justify-between px-6">
-            {{-- Left --}}
-            <div class="flex items-center gap-3">
-                <button id="toggleSidebar" class="p-2 rounded-lg hover:bg-gray-100">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none"
-                         viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        <!-- DARI h-16 JADI h-20 -->
+        <header class="h-20 bg-white flex items-center justify-between px-8">
+
+            <div class="flex items-center gap-4">
+                <!-- tombol dibesarin -->
+                <button id="toggleSidebar" class="p-3 rounded-lg hover:bg-gray-100">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         class="h-6 w-6 text-gray-600"
+                         fill="none"
+                         viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
                               d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
                 </button>
             </div>
 
-            {{-- Right --}}
             <div class="relative">
-                <button
-                    onclick="toggleProfile()"
-                    class="flex items-center gap-4 focus:outline-none">
+                <button onclick="toggleProfile()"
+                        class="flex items-center gap-5 focus:outline-none">
 
                     <div class="text-right leading-tight">
-                        <p class="text-sm font-semibold text-gray-800">
+                        <!-- font dibesarin -->
+                        <p class="text-base font-semibold text-gray-800">
                             {{ Auth::user()->name }}
                         </p>
-                        <p class="text-xs text-gray-500">
+                        <p class="text-sm text-gray-500">
                             {{ Auth::user()->email }}
                         </p>
                     </div>
 
+                    <!-- avatar dibesarin -->
                     <img
                         src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=2563eb&color=fff"
-                        class="w-9 h-9 rounded-full"
+                        class="w-12 h-12 rounded-full"
                         alt="Avatar"
                     >
                 </button>
 
-                {{-- DROPDOWN PROFILE --}}
-                <div
-                    id="profileDropdown"
-                    class="hidden absolute right-0 mt-4 w-80 bg-white rounded-2xl shadow-lg border z-50">
+                <div id="profileDropdown"
+                     class="hidden absolute right-0 mt-4 w-96 bg-white rounded-2xl shadow-lg border z-50">
 
-                    {{-- CARD CONTENT --}}
-                    <div class="p-6">
+                    <div class="p-8">
 
-                        {{-- AVATAR --}}
-                        <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-5">
                             <img
                                 src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=ef4444&color=fff"
-                                class="w-14 h-14 rounded-full"
+                                class="w-16 h-16 rounded-full"
                                 alt="Avatar"
                             >
 
                             <div>
-                                <p class="text-base font-semibold text-gray-800">
+                                <p class="text-lg font-semibold text-gray-800">
                                     {{ Auth::user()->name }}
                                 </p>
-                                <p class="text-sm text-gray-500 flex items-center gap-2">
+                                <p class="text-base text-gray-500 flex items-center gap-2">
                                     <i class="fa-solid fa-envelope"></i>
                                     {{ Auth::user()->email }}
                                 </p>
                             </div>
                         </div>
 
-                        <hr class="my-5">
+                        <hr class="my-6">
 
-                        {{-- EDIT PROFIL --}}
-                        <a
-                            href="{{ route('profile.edit') }}"
-                            class="block w-full text-center bg-blue-50 text-blue-600 py-3 rounded-xl font-semibold hover:bg-blue-100 transition">
+                        <a href="{{ route('profile.edit') }}"
+                           class="block w-full text-center bg-blue-50 text-blue-600 py-4 rounded-xl font-semibold hover:bg-blue-100 transition">
                             Edit Profil
                         </a>
 
-                        {{-- LOGOUT --}}
-                        <form method="POST" action="{{ route('logout') }}" class="mt-4">
+                        <form method="POST" action="{{ route('logout') }}" class="mt-5">
                             @csrf
-                            <button
-                                type="submit"
-                                class="w-full flex items-center justify-center gap-2 bg-red-50 text-red-600 py-3 rounded-xl font-semibold hover:bg-red-100 transition">
+                            <button type="submit"
+                                    class="w-full flex items-center justify-center gap-2 bg-red-50 text-red-600 py-4 rounded-xl font-semibold hover:bg-red-100 transition">
                                 Logout
                                 <i class="fa-solid fa-right-from-bracket"></i>
                             </button>
@@ -189,8 +190,7 @@
             </div>
         </header>
 
-        {{-- CONTENT (kosong, siap diisi) --}}
-        <main class="p-6">
+        <main class="p-8">
             @yield('content')
         </main>
 
@@ -203,7 +203,6 @@
             .classList.toggle('hidden');
     }
 
-    // klik di luar = nutup
     document.addEventListener('click', function (e) {
         const dropdown = document.getElementById('profileDropdown');
         if (!e.target.closest('.relative')) {
@@ -211,14 +210,16 @@
         }
     });
 
-    //sidebar
     const toggleBtn = document.getElementById('toggleSidebar');
     const sidebar = document.getElementById('sidebar');
 
     toggleBtn.addEventListener('click', () => {
-        sidebar.classList.toggle('-ml-64');
+        sidebar.classList.toggle('-ml-80');
     });
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+@stack('scripts')
 </body>
 </html>

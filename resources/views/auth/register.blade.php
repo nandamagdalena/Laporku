@@ -167,7 +167,7 @@
                 {{-- BUTTON --}}
                 <button
                     type="submit"
-                    class="w-full py-3 px-4 rounded-md text-sm font-medium text-white bg-[#0059A8] hover:bg-[#0589fd] transition"
+                    class="w-full py-3 px-4 rounded-md text-sm font-medium text-white bg-[#1ac8db] hover:bg-[#0589fd] transition"
                 >
                     Daftar
                 </button>
@@ -183,9 +183,9 @@
     </div>
 
     <!-- Right Side -->
-    <div class="hidden lg:flex lg:w-1/2 bg-linear-to-br from-[#0059A8] to-cyan-500 items-center justify-center p-12">
+    <div class="hidden lg:flex lg:w-1/2 bg-linear-to-br  from-blue-500 to-[#1ac8db] items-center justify-center p-12">
         <div class="max-w-lg text-white text-center">
-            <img class="mx-auto mb-4" src="{{ asset('images/logolapor.png') }}" alt="Laporku Logo">
+            <img class="mx-auto h-1/2 w-auto mb-3" src="{{ asset('images/iconlogin.png') }}" alt="Laporku Logo">
             <h2 class="text-4xl font-bold mb-4">Selamat datang di Laporku!</h2>
             <p class="text-lg text-cyan-50">
                 Solusi untuk mengaspirasikan keluhan terkait sarana dan prasarana di SMK Negeri 4 Bojonegoro.

@@ -6,54 +6,88 @@
 <div class="space-y-6">
 
     <!-- HEADER -->
-    <div>
-        <h1 class="text-2xl font-semibold text-gray-800">Daftar Pengguna</h1>
-        <div class="text-sm text-gray-500 mt-1">
-            <span class="text-gray-400">Beranda</span>
-            <span class="mx-1">›</span>
-            <span class="text-red-500">Daftar Pengguna</span>
+    <div class="flex items-start justify-between">
+
+        <!-- KIRI -->
+        <div>
+            <h1 class="text-2xl font-semibold text-gray-800">
+                Daftar Pengguna
+            </h1>
+
+            <div class="text-sm text-gray-500 mt-1">
+                <span class="text-[#00afea]">Kelola dan Pantau Daftar Pengguna</span>
+            </div>
         </div>
+
+        <!-- KANAN (Tanggal) -->
+        <div class="hidden md:block">
+            <span class="bg-blue-50 text-blue-600 px-4 py-2 rounded-xl text-sm font-semibold shadow-sm">
+                {{ now()->format('l, d F Y') }}
+            </span>
+        </div>
+
     </div>
 
         <!-- CARD -->
         <div class="bg-white rounded-xl shadow p-6">
 
-        <!-- SEARCH + SORT -->
-        <div class="flex items-center justify-between mb-5">
+            <!-- SEARCH + SORT -->
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
 
-            <!-- SEARCH -->
-            <form method="GET" class="relative w-80">
-                <input
-                    type="text"
-                    name="search"
-                    value="{{ request('search') }}"
-                    placeholder="Telusuri sesuatu..."
-                    class="w-full rounded-lg border border-gray-300 pl-10 pr-4 py-2 text-sm
-                        focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
+                <!-- KIRI (Search + Export) -->
+                <div class="flex items-center gap-3 w-full md:w-auto">
 
-                <!-- icon search -->
-                <svg class="absolute left-3 top-2.5 w-4 h-4 text-gray-400"
-                    fill="none" stroke="currentColor" stroke-width="2"
-                    viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M21 21l-4.35-4.35m1.35-5.65a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                </svg>
+                    <!-- SEARCH -->
+                    <form method="GET" class="relative w-full md:w-80">
+                        <input
+                            type="text"
+                            name="search"
+                            value="{{ request('search') }}"
+                            placeholder="Telusuri sesuatu..."
+                            class="w-full rounded-xl border border-gray-300 pl-11 pr-4 py-2.5 text-sm
+                                focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                        >
 
-                <!-- jaga sorting saat search -->
-                <input type="hidden" name="sort" value="{{ request('sort') }}">
-            </form>
+                        <svg class="absolute left-4 top-3 w-4 h-4 text-gray-400"
+                            fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M21 21l-4.35-4.35m1.35-5.65a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
 
-            <!-- SORT -->
-            <form method="GET" class="flex items-center gap-2">
+                        <input type="hidden" name="sort" value="{{ request('sort') }}">
+                    </form>
+
+                    <!-- EXPORT BUTTON -->
+                    <a href="#"
+                    class="inline-flex items-center gap-2 bg-[#00afea] hover:bg-blue-400
+                            text-white text-sm px-4 py-2.5 rounded-xl shadow-sm
+                            transition duration-200">
+
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-4 h-4"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 4v12m0 0l-3-3m3 3l3-3M4 20h16"/>
+                        </svg>
+
+                        Export
+                    </a>
+
+                </div>
+
+            <!-- KANAN (Sort) -->
+            <form method="GET" class="flex items-center gap-3">
                 <span class="text-sm text-gray-500">Sort by:</span>
 
                 <select
                     name="sort"
                     onchange="this.form.submit()"
-                    class="rounded-lg border border-gray-300 px-3 py-2 text-sm
-                        focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
-                >
+                    class="rounded-xl border border-gray-300 px-4 py-2.5 text-sm
+                        focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer">
                     <option value="az" {{ request('sort')=='az' ? 'selected' : '' }}>
                         A - Z
                     </option>
@@ -62,7 +96,6 @@
                     </option>
                 </select>
 
-                <!-- jaga search saat sorting -->
                 <input type="hidden" name="search" value="{{ request('search') }}">
             </form>
         </div>
@@ -71,7 +104,7 @@
         <div class="overflow-x-auto">
             <table class="w-full border-collapse">
                 <thead>
-                    <tr class="bg-blue-700 text-white text-sm">
+                    <tr class="bg-[#02779E] text-white text-sm">
                         <th class="px-4 py-3 text-left rounded-l-lg">No</th>
                         <th class="px-4 py-3 text-left">Nama Pengguna</th>
                         <th class="px-4 py-3 text-left">NIS</th>

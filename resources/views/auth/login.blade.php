@@ -13,7 +13,7 @@
             <div class="max-w-md w-full space-y-8">
                 <!-- Logo -->
                 <div>
-                    <img class="mx-auto h-sm w-sm" src="{{ asset('images/logopanjang.png') }}" alt="Laporku Logo">
+                    <img class="mx-auto h-sm w-sm" src="{{ asset('images/logo2.png') }}" alt="Laporku Logo">
                 </div>
 
                 <!-- Login Form -->
@@ -92,7 +92,7 @@
                         <div>
                             <button
                                 type="submit"
-                                class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#0059A8] hover:bg-[#0589fd] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 transition-colors"
+                                class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#1ac8db] hover:bg-[#0589fd] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 transition-colors"
                             >
                                 Masuk
                             </button>
@@ -113,11 +113,11 @@
         </div>
 
         <!-- Right Side - Welcome Section -->
-        <div class="hidden lg:flex lg:w-1/2 bg-linear-to-br from-[#0059A8] to-cyan-500 items-center justify-center p-12">
+        <div class="hidden lg:flex lg:w-1/2 bg-linear-to-br from-blue-500 to-[#1ac8db] items-center justify-center p-12">
             <div class="max-w-lg text-white">
-                <img class="mx-auto h-xl w-auto mb-3" src="{{ asset('images/logolapor.png') }}" alt="Laporku Logo">
-                <h2 class="text-5xl font-bold mb-4">Selamat datang di Laporku!</h2>
-                <p class="text-xl text-cyan-50 mb-8">
+                <img class="mx-auto h-96 w-auto mb-3" src="{{ asset('images/iconlogin.png') }}" alt="Laporku Logo">
+                <h2 class="text-4xl font-bold mb-4">Selamat datang di Laporku!</h2>
+                <p class="text-lg text-cyan-50">
                     Solusi untuk mengaspirasikan keluhan terkait sarana dan prasarana di SMK Negeri 4 Bojonegoro.
                 </p>
             </div>

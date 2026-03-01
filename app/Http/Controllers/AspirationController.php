@@ -141,7 +141,7 @@ class AspirationController extends Controller
         $pdf = Pdf::loadView('admin.aspiration.export', compact('aspiration'))
                 ->setPaper('A4', 'portrait');
 
-        return $pdf->download('laporan-pengaduan-'.$aspiration->id.'.pdf');
+        return $pdf->stream('laporan-pengaduan-'.$aspiration->id.'.pdf');
     }
 
 }

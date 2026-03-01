@@ -5,13 +5,28 @@
 @section('content')
 
 {{-- HEADER --}}
-<div class="mb-6">
-    <h1 class="text-xl font-semibold text-gray-800">Daftar Pengaduan</h1>
-    <p class="text-sm text-gray-500 mt-1">
-        <span class="text-gray-400">Beranda</span>
-        <span class="mx-1">›</span>
-        <span class="text-blue-600 font-medium">Daftar Pengaduan</span>
-    </p>
+<div class="mb-6 flex items-start justify-between">
+
+    {{-- KIRI --}}
+    <div>
+        <h1 class="text-xl font-semibold text-gray-800">
+            Daftar Pengaduan
+        </h1>
+
+        <p class="text-sm text-gray-500 mt-1">
+            <span class="text-[#00afea]">
+                Lihat Daftar Pengaduan Anda
+            </span>
+        </p>
+    </div>
+
+    {{-- KANAN (Tanggal) --}}
+    <div class="hidden md:block">
+        <span class="bg-blue-50 text-blue-600 px-4 py-2 rounded-xl text-sm font-semibold shadow-sm">
+            {{ now()->format('l, d F Y') }}
+        </span>
+    </div>
+
 </div>
 
 {{-- CARD --}}
@@ -84,7 +99,7 @@
     {{-- TABLE --}}
     <div class="overflow-x-auto rounded-lg border border-gray-200">
         <table class="w-full text-sm border-collapse">
-            <thead class="bg-blue-600 text-white">
+            <thead class="bg-[#02779E] text-white">
                 <tr>
                     <th class="px-4 py-3 text-left font-medium">No</th>
                     <th class="px-4 py-3 text-left font-medium">Nama</th>
