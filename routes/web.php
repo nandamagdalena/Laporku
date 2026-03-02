@@ -42,8 +42,10 @@ Route::middleware('auth')->group(function () {
         // Route::get('/dashboard', fn () => view('admin.dashboard'))->name('admin.dashboard');
         Route::get('/dashboard', [DashboardAdminController::class, 'index'])->name('admin.dashboard');
 
+        // Daftar Pengguna Management
         Route::get('/daftarpengguna', [IndexUserController::class, 'index'])->name('admin.users');
         Route::delete('/daftarpengguna/{id}', [IndexUserController::class, 'destroy'])->name('users.delete');
+        Route::get('/admin/daftarpengguna/export', [IndexUserController::class, 'export'])->name('admin.users.export');
 
         // Category Management
         Route::get('/categories', [CategoryController::class, 'index'])->name('category.index');

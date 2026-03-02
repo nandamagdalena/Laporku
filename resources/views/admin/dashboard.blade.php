@@ -10,7 +10,7 @@
     <div class="flex items-center justify-between">
         <div>
             <h1 class="text-3xl font-bold text-gray-800">Dashboard</h1>
-            <p class="text-gray-500 mt-2">
+            <p class="text-[#1ac8db] mt-2">
                 Halo {{ Auth::user()->name ?? 'User' }}, selamat datang kembali 👋
             </p>
         </div>

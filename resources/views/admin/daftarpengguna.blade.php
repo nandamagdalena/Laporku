@@ -59,7 +59,7 @@
                     </form>
 
                     <!-- EXPORT BUTTON -->
-                    <a href="#"
+                    <a href="{{ route('admin.users.export') }}"
                     class="inline-flex items-center gap-2 bg-[#00afea] hover:bg-blue-400
                             text-white text-sm px-4 py-2.5 rounded-xl shadow-sm
                             transition duration-200">
@@ -102,7 +102,7 @@
 
         <!-- TABLE -->
         <div class="overflow-x-auto">
-            <table class="w-full border-collapse">
+            <table class="w-full text-sm">
                 <thead>
                     <tr class="bg-[#02779E] text-white text-sm">
                         <th class="px-4 py-3 text-left rounded-l-lg">No</th>

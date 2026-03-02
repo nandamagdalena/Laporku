@@ -34,7 +34,6 @@
 <div class="flex min-h-screen">
 
     {{-- SIDEBAR --}}
-    <!-- DARI w-64 JADI w-80 -->
     <aside id="sidebar" class="w-80 bg-white border-r border-gray-200 flex flex-col duration-300">
 
         <div class="flex items-center pt-4 pl-6">
@@ -44,57 +43,87 @@
                 class="h-16 w-auto"
             >
         </div>
+
         {{-- Menu --}}
-        <!-- text-sm JADI text-base -->
         <nav class="flex-1 px-6 py-8 space-y-4 text-base text-gray-700">
 
             {{-- dashboard --}}
             <div>
                 <p class="text-sm font-bold uppercase mb-3 text-gray-900">Dashboard</p>
+
                 <a href="{{ route('admin.dashboard') }}"
-                    class="flex items-center gap-4 px-5 py-3 rounded-xl
-                    {{ request()->routeIs('admin.dashboard')
-                            ? 'bg-[#a2e8ff4c] text-[#00afea] font-semibold'
-                            : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900' }}">
-                        <i class="fa-solid fa-house text-lg"></i>
-                        Dashboard
+                class="relative flex items-center gap-4 px-5 py-3 rounded-xl transition-all duration-200
+                {{ request()->routeIs('admin.dashboard')
+                        ? 'bg-[#a2e8ff4c] text-[#00afea] font-semibold'
+                        : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900' }}">
+
+                    {{-- GARIS AKTIF DI SISI SIDEBAR --}}
+                    @if(request()->routeIs('admin.dashboard'))
+                        <span class="absolute -left-5 top-0 h-full w-1 bg-yellow-400 rounded-r-full"></span>
+                    @endif
+
+                    <i class="fa-solid fa-house text-lg"></i>
+                    Dashboard
                 </a>
             </div>
 
+            {{-- daftar pengguna --}}
             <div>
-                <p class="text-sm font-bold uppercase mb-3 text-gray-900">Daftar Pengguna</p>
+                <p class="text-sm font-bold uppercase mb-3 text-gray-900">Kelola Pengguna</p>
+
                 <a href="{{ route('admin.users') }}"
-                        class="flex items-center gap-4 px-5 py-3 rounded-xl
-                        {{ request()->routeIs('admin.users')
-                                ? 'bg-[#a2e8ff4c] text-[#00afea] font-semibold'
-                                : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900' }}">
-                            <i class="fa-solid fa-users text-lg"></i>
-                            Daftar Pengguna
+                class="relative flex items-center gap-4 px-5 py-3 rounded-xl transition-all duration-200
+                {{ request()->routeIs('admin.users')
+                        ? 'bg-[#a2e8ff4c] text-[#00afea] font-semibold'
+                        : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900' }}">
+
+                    {{-- GARIS AKTIF DI SISI SIDEBAR --}}
+                    @if(request()->routeIs('admin.users'))
+                        <span class="absolute -left-5 top-0 h-full w-1 bg-yellow-400 rounded-r-full"></span>
+                    @endif
+
+                    <i class="fa-solid fa-users text-lg"></i>
+                    Daftar Pengguna
                 </a>
             </div>
 
+            {{-- daftar pengaduan --}}
             <div>
-                <p class="text-sm font-bold uppercase mb-3 text-gray-900">Daftar Pengaduan</p>
+                <p class="text-sm font-bold uppercase mb-3 text-gray-900">Kelola Pengaduan</p>
+
                 <a href="{{ route('aspiration.index') }}"
-                        class="flex items-center gap-4 px-5 py-3 rounded-xl
-                        {{ request()->routeIs('aspiration.index')
-                                ? 'bg-[#a2e8ff4c] text-[#00afea] font-semibold'
-                                : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900' }}">
-                            <i class="fa-solid fa-file-circle-exclamation text-lg"></i>
-                            Daftar Pengaduan
+                class="relative flex items-center gap-4 px-5 py-3 rounded-xl transition-all duration-200
+                {{ request()->routeIs('aspiration.index')
+                        ? 'bg-[#a2e8ff4c] text-[#00afea] font-semibold'
+                        : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900' }}">
+
+                    {{-- GARIS AKTIF DI SISI SIDEBAR --}}
+                    @if(request()->routeIs('aspiration.index'))
+                        <span class="absolute -left-5 top-0 h-full w-1 bg-yellow-400 rounded-r-full"></span>
+                    @endif
+
+                    <i class="fa-solid fa-file-circle-exclamation text-lg"></i>
+                    Daftar Pengaduan
                 </a>
             </div>
 
+            {{-- kategori --}}
             <div>
                 <p class="text-sm font-bold uppercase mb-3 text-gray-900">Kelola Kategori</p>
+
                 <a href="{{ route('category.index') }}"
-                class="flex items-center gap-4 px-5 py-3 rounded-xl
+                class="relative flex items-center gap-4 px-5 py-3 rounded-xl transition-all duration-200
                 {{ request()->routeIs('category.index')
                         ? 'bg-[#a2e8ff4c] text-[#00afea] font-semibold'
                         : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900' }}">
 
+                    {{-- GARIS AKTIF DI SISI SIDEBAR --}}
+                    @if(request()->routeIs('category.index'))
+                        <span class="absolute -left-5 top-0 h-full w-1 bg-yellow-400 rounded-r-full"></span>
+                    @endif
+
                     <i class="fa-solid fa-folder text-lg"></i>
-                    <span>Kategori</span>
+                    Daftar Kategori
                 </a>
             </div>
 

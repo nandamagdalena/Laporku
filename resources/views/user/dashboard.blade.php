@@ -11,7 +11,7 @@
         class="rounded-2xl p-6 flex justify-between items-center text-white shadow-lg"
         style="background: linear-gradient(to right, #2563eb, #3b82f6);">
         <div>
-            <h2 class="text-2xl font-bold">
+            <h2 class="text-2xl font-bold text-[#1ac8db]">
                 Halo, {{ auth()->user()->name }}! 👋
             </h2>
             <p class="text-sm mt-2 opacity-90 max-w-md">

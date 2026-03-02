@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class IndexUserController extends Controller
 {
@@ -40,6 +42,11 @@ class IndexUserController extends Controller
         User::findOrFail($id)->delete();
 
         return back()->with('success', 'User berhasil dihapus');
+    }
+
+    public function export()
+    {
+        return Excel::download(new UsersExport, 'daftar_pengguna.xlsx');
     }
 }
 

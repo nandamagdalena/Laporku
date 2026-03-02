@@ -10,30 +10,43 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Requests\StoreAspirationRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\AspirationsExport;
+use Carbon\Carbon;
 
 class AspirationController extends Controller
 {
     // ADMIN - LIST (SEARCH + FILTER)
     public function index(Request $request)
     {
-        // ambil kategori buat filter
         $categories = Category::orderBy('name')->get();
 
         $aspirations = Aspiration::with(['user', 'category'])
+
             ->when($request->search, function ($q) use ($request) {
-                $q->whereHas('user', function ($u) use ($request) {
-                    $u->where('name', 'like', '%' . $request->search . '%');
-                })
-                ->orWhere('location', 'like', '%' . $request->search . '%')
-                ->orWhere('description', 'like', '%' . $request->search . '%');
+                $q->where(function ($query) use ($request) {
+                    $query->whereHas('user', function ($u) use ($request) {
+                            $u->where('name', 'like', '%' . $request->search . '%');
+                        })
+                        ->orWhere('location', 'like', '%' . $request->search . '%')
+                        ->orWhere('description', 'like', '%' . $request->search . '%');
+                });
             })
+
             ->when($request->category, function ($q) use ($request) {
                 $q->whereIn('category_id', $request->category);
             })
+
             ->when($request->status, function ($q) use ($request) {
                 $q->where('status', $request->status);
             })
-            ->latest()
+
+            ->when($request->start_date && $request->end_date, function ($q) use ($request) {
+                $q->whereBetween('date', [
+                    $request->start_date,
+                    $request->end_date
+                ]);
+            })
+
+            ->orderBy('date', 'desc')
             ->paginate(10)
             ->withQueryString();
 
@@ -154,15 +167,34 @@ class AspirationController extends Controller
         $query = Aspiration::with(['user', 'category']);
 
         if (!empty($start_date) && !empty($end_date)) {
-            $query->whereBetween('created_at', [$start_date, $end_date]);
+            $query->whereDate('date', '>=', $start_date)
+                ->whereDate('date', '<=', $end_date);
         }
 
-        $aspirations = $query->get(); // WAJIB ADA GET()
+        $aspirations = $query
+            ->orderBy('date', 'desc')
+            ->get();
 
         return Excel::download(
             new AspirationsExport($aspirations, $start_date, $end_date),
             'laporan-pengaduan.xlsx'
         );
+    }
+
+    public function byStatus($status)
+    {
+        $validStatus = ['menunggu', 'diproses', 'selesai', 'ditolak'];
+
+        if (!in_array($status, $validStatus)) {
+            abort(404);
+        }
+
+        $aspirations = Aspiration::with(['user', 'category'])
+            ->where('status', $status)
+            ->orderBy('date', 'desc')
+            ->get();
+
+        return view('admin.aspiration.index', compact('aspirations', 'status'));
     }
 
 }

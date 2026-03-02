@@ -12,69 +12,130 @@
         </div>
     </div>
 
-        <!-- CARD -->
-        <div class="bg-white rounded-xl shadow p-6">
-            <!-- Search -->
-            <div class="flex items-center justify-between mb-5">
+    <!-- CARD -->
+    <div class="bg-white rounded-xl shadow p-6">
+        <!-- Search -->
+        <div class="flex items-center justify-between mb-5">
+            <div class="flex items-center gap-3">
 
-    <div class="flex items-center gap-3">
+                <!-- SEARCH -->
+                <form method="GET" class="relative w-80">
+                    <input
+                            type="text"
+                            name="search"
+                            value="{{ request('search') }}"
+                            placeholder="Telusuri sesuatu..."
+                            class="w-full rounded-lg border border-gray-300 pl-10 pr-4 py-2 text-sm
+                                focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
 
-        <!-- SEARCH -->
-        <form method="GET" class="relative w-80">
-            <input
-                type="text"
-                name="search"
-                value="{{ request('search') }}"
-                placeholder="Telusuri sesuatu..."
-                class="w-full rounded-lg border border-gray-300 pl-10 pr-4 py-2 text-sm
-                       focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
+                        <!-- icon search -->
+                        <svg class="absolute left-3 top-2.5 w-4 h-4 text-gray-400"
+                            fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M21 21l-4.35-4.35m1.35-5.65a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
 
-            <!-- icon search -->
-            <svg class="absolute left-3 top-2.5 w-4 h-4 text-gray-400"
-                fill="none" stroke="currentColor" stroke-width="2"
-                viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M21 21l-4.35-4.35m1.35-5.65a7 7 0 11-14 0 7 7 0 0114 0z"/>
-            </svg>
+                        <!-- jaga sorting saat search -->
+                        <input type="hidden" name="sort" value="{{ request('sort') }}">
+                </form>
 
-            <!-- jaga sorting saat search -->
-            <input type="hidden" name="sort" value="{{ request('sort') }}">
-        </form>
+                <div class="relative inline-block">
+                    <!-- FILTER BUTTON -->
+                    <button type="button"
+                        onclick="toggleFilter()"
+                        class="flex items-center justify-center w-10 h-10 rounded-lg
+                        border border-gray-300 bg-white hover:bg-gray-100
+                        transition duration-200">
 
-        <!-- FILTER BUTTON -->
-        <button type="button"
-            class="flex items-center justify-center w-10 h-10 rounded-lg
-                   border border-gray-300 bg-white hover:bg-gray-100
-                   transition duration-200">
+                        <i class="fa-solid fa-sliders text-[#00afea]"></i>
+                    </button>
 
-            <i class="fa-solid fa-sliders text-[#00afea]"></i>
-        </button>
+                    <div id="filterDropdown" class="hidden absolute right-0 mt-3 w-72 bg-white border border-gray-200 rounded-xl shadow-lg p-4 z-50">
 
-    </div>
+                        <form method="GET" class="space-y-4">
+                            <!-- KATEGORI CHECKBOX -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    Kategori
+                                </label>
 
-    {{-- Export --}}
-    <a href="{{ route('aspirations.export.excel') }}"
-        class="inline-flex items-center gap-2 bg-[#00afea] hover:bg-blue-400
-               text-white text-sm px-4 py-2.5 rounded-xl shadow-sm
-               transition duration-200">
+                                <div class="max-h-40 overflow-y-auto space-y-2">
+                                    @foreach($categories as $category)
+                                        <label class="flex items-center space-x-2 text-sm">
+                                            <input type="checkbox"
+                                                name="category[]"
+                                                value="{{ $category->id }}"
+                                                {{ in_array($category->id, (array)request('category')) ? 'checked' : '' }}
+                                                class="rounded border-gray-300 text-[#00afea] focus:ring-[#00afea]">
 
-        <svg xmlns="http://www.w3.org/2000/svg"
-            class="w-4 h-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round"
-                d="M12 4v12m0 0l-3-3m3 3l3-3M4 20h16"/>
-        </svg>
-        Ekspor
-    </a>
+                                            <span>{{ $category->name }}</span>
+                                        </label>
+                                    @endforeach
+                                </div>
+                            </div>
 
-</div>
+                            <!-- TANGGAL -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">
+                                    Tanggal Mulai
+                                </label>
+                                <input type="date"
+                                    name="start_date"
+                                    value="{{ request('start_date') }}"
+                                    class="w-full border border-gray-300 rounded-lg p-2 text-sm">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">
+                                    Tanggal Selesai
+                                </label>
+                                <input type="date"
+                                    name="end_date"
+                                    value="{{ request('end_date') }}"
+                                    class="w-full border border-gray-300 rounded-lg p-2 text-sm">
+                            </div>
+
+                            <!-- BUTTON -->
+                            <div class="flex justify-between pt-2">
+                                <a href="{{ route('aspiration.index') }}"
+                                class="bg-yellow-100 text-yellow-600 px-4 py-2 rounded-lg text-sm">
+                                    Reset
+                                </a>
+
+                                <button type="submit"
+                                    class="bg-[#00afea] text-white px-4 py-2 rounded-lg text-sm">
+                                    Terapkan
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+                {{-- Export --}}
+                <a href="{{ route('aspirations.export.excel', request()->query()) }}"
+                class="inline-flex items-center gap-2 bg-[#00afea] hover:bg-blue-400
+                        text-white text-sm px-4 py-2.5 rounded-xl shadow-sm
+                        transition duration-200">
+
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-4 h-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 4v12m0 0l-3-3m3 3l3-3M4 20h16"/>
+                    </svg>
+                    Ekspor
+                </a>
+            </div>
 
             <!-- Table -->
-            <div class="overflow-hidden rounded-xl border border-gray-200">
+            <div class="w-full overflow-hidden rounded-xl border border-gray-200">
             <table class="w-full text-sm">
                 <thead class="bg-[#02779E] text-white">
                     <tr>
@@ -94,7 +155,7 @@
                                 {{ $loop->iteration + $aspirations->firstItem() - 1 }}
                             </td>
                             <td class="px-3 py-2">
-                                {{ $item->name ?? $item->nama }}
+                                {{ $item->user?->name }}
                             </td>
                             <td class="px-3 py-2 text-center">
                                 {{ \Carbon\Carbon::parse($item->date)->format('d-m-Y') }}
@@ -148,4 +209,21 @@
         </div>
     </div>
 </div>
+
+<script>
+    function toggleFilter() {
+        document.getElementById('filterDropdown')
+            .classList.toggle('hidden');
+    }
+
+    document.addEventListener('click', function(event) {
+        const dropdown = document.getElementById('filterDropdown');
+        const button = event.target.closest('button');
+
+        if (!event.target.closest('#filterDropdown') &&
+            !event.target.closest('[onclick="toggleFilter()"]')) {
+            dropdown.classList.add('hidden');
+        }
+    });
+</script>
 @endsection
