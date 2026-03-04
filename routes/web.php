@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ProfileController;
+// use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\IndexUserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AspirationController;
@@ -33,9 +33,9 @@ Route::middleware('guest')->group(function () {
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Admin Routes
     Route::middleware('role:admin')->prefix('admin')->group(function () {
@@ -55,11 +55,14 @@ Route::middleware('auth')->group(function () {
 
         // Aspiration Management
         Route::get('/aspirations', [AspirationController::class, 'index'])->name('aspiration.index');
+        Route::get('/aspirations/menunggu', [AspirationController::class, 'menunggu'])->name('aspirations.menunggu');
+        Route::get('/aspirations/diproses', [AspirationController::class, 'diproses'])->name('aspirations.diproses');
+        Route::get('/aspirations/selesai', [AspirationController::class, 'selesai'])->name('aspirations.selesai');
+        Route::get('/aspirations/ditolak', [AspirationController::class, 'ditolak'])->name('aspirations.ditolak');
         Route::get('/aspirations/{aspiration}', [AspirationController::class, 'show'])->name('aspiration.show');
         Route::put('/aspirations/{aspiration}', [AspirationController::class, 'update'])->name('aspiration.update');
         Route::get('/aspirations/{id}/export', [AspirationController::class, 'export'])->name('aspirations.export');
         Route::get('/aspirations-export-excel', [AspirationController::class, 'exportExcel'])->name('aspirations.export.excel');
-
     });
 
     // User Routes

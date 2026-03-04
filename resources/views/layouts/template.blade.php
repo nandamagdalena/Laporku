@@ -107,6 +107,24 @@
                 </a>
             </div>
 
+            {{-- menunggu --}}
+            <div>
+                <a href="{{ route('aspirations.menunggu') }}"
+                class="relative flex items-center gap-4 px-5 py-3 rounded-xl transition-all duration-200
+                {{ request()->routeIs('aspiration.menunggu')
+                        ? 'bg-[#a2e8ff4c] text-[#00afea] font-semibold'
+                        : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900' }}">
+
+                    {{-- GARIS AKTIF DI SISI SIDEBAR --}}
+                    @if(request()->routeIs('aspiration.menunggu'))
+                        <span class="absolute -left-5 top-0 h-full w-1 bg-yellow-400 rounded-r-full"></span>
+                    @endif
+
+                    <i class="fa-solid fa-file-circle-exclamation text-lg"></i>
+                    Menunggu
+                </a>
+            </div>
+
             {{-- kategori --}}
             <div>
                 <p class="text-sm font-bold uppercase mb-3 text-gray-900">Kelola Kategori</p>
@@ -200,7 +218,7 @@
 
                         <hr class="my-6">
 
-                        <a href="{{ route('profile.edit') }}"
+                        <a href="#"
                            class="block w-full text-center bg-blue-50 text-blue-600 py-4 rounded-xl font-semibold hover:bg-blue-100 transition">
                             Edit Profil
                         </a>
