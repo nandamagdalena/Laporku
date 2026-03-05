@@ -6,114 +6,185 @@
 
 <div class="space-y-6">
 
-    {{-- Banner --}}
-    <div
-        class="rounded-2xl p-6 flex justify-between items-center text-white shadow-lg"
-        style="background: linear-gradient(to right, #2563eb, #3b82f6);">
-        <div>
-            <h2 class="text-2xl font-bold text-[#1ac8db]">
-                Halo, {{ auth()->user()->name }}! 👋
-            </h2>
-            <p class="text-sm mt-2 opacity-90 max-w-md">
-                Laporku! membantu Anda melaporkan sarana sekolah yang bermasalah agar
-                segera ditindaklanjuti demi lingkungan belajar yang aman dan nyaman.
-            </p>
-        </div>
+    {{-- BANNER --}}
+    <div class="relative overflow-hidden rounded-2xl shadow-md px-6 py-4 text-white">
 
-        <img src="{{ asset('images/people.png') }}"
-            class="w-32 hidden md:block">
+        {{-- Gradient Background --}}
+        <div class="absolute inset-0 bg-linear-to-r from-[#1ac8db] to-blue-500"></div>
+
+        {{-- Soft Glow --}}
+        <div class="absolute -top-10 -left-10 w-40 h-40 bg-cyan-300 opacity-20 blur-2xl rounded-full"></div>
+
+        <div class="relative flex items-center justify-between">
+
+            {{-- TEXT --}}
+            <div class="max-w-md">
+                <h2 class="text-xl md:text-2xl font-semibold">
+                    Selamat Datang,
+                    <span class="text-cyan-200 font-bold">
+                        {{ auth()->user()->name }}
+                    </span> 👋
+                </h2>
+
+                <p class="mt-1 text-xs md:text-sm text-white/90">
+                    Laporkan fasilitas bermasalah dengan cepat dan mudah.
+                </p>
+
+                <div class="mt-3 flex gap-2">
+                    <a href="{{ route('pengaduan.create') }}"
+                    class="bg-white text-blue-700 text-xs font-semibold px-4 py-2 rounded-lg
+                            hover:scale-105 transition shadow">
+                        🚀 Buat
+                    </a>
+
+                    <a href="#"
+                    class="border border-white/40 text-xs px-4 py-2 rounded-lg
+                            hover:bg-white/10 transition">
+                        Riwayat
+                    </a>
+                </div>
+            </div>
+
+            {{-- IMAGE --}}
+            <img src="{{ asset('images/people.png') }}"
+                class="w-28 md:w-32 drop-shadow-lg hidden md:block">
+
+        </div>
     </div>
 
-    {{-- Statistik Status --}}
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    {{-- ================= STATISTIK (1 CARD BESAR) ================= --}}
+    <div class="bg-white rounded-3xl shadow p-8 flex justify-around items-center">
 
-        <div class="bg-white rounded-2xl p-6 flex items-center gap-4 shadow">
-            <div class="bg-blue-100 text-blue-600 p-6 rounded-xl">
-                <i class="fa-solid fa-hourglass-half text-3xl"></i>
+        {{-- MENUNGGU --}}
+        <div class="flex items-center gap-4">
+            <div class="bg-blue-100 p-6 rounded-2xl text-blue-600">
+                <i class="fa-solid fa-clock text-3xl"></i>
             </div>
             <div>
-                <p class="text-gray-500 text-sm">Menunggu</p>
-                <p class="text-2xl font-bold">{{ $menunggu }}</p>
+                <p class="text-gray-400 text-sm">Menunggu</p>
+                <p class="text-3xl font-bold">{{ $menunggu }}</p>
             </div>
         </div>
 
-        <div class="bg-white rounded-2xl p-6 flex items-center gap-4 shadow">
-            <div class="bg-yellow-100 text-yellow-600 p-6 rounded-xl">
-                <i class="fa-solid fa-chart-simple text-3xl"></i>
+        <div class="h-14 w-px bg-gray-200"></div>
+
+        {{-- PROSES --}}
+        <div class="flex items-center gap-4">
+            <div class="bg-gray-100 p-6 rounded-2xl text-blue-500">
+                <i class="fa-solid fa-rotate text-3xl"></i>
             </div>
             <div>
-                <p class="text-gray-500 text-sm">Proses</p>
-                <p class="text-2xl font-bold">{{ $proses }}</p>
+                <p class="text-gray-400 text-sm">Proses</p>
+                <p class="text-3xl font-bold">{{ $proses }}</p>
             </div>
         </div>
 
-        <div class="bg-white rounded-2xl p-6 flex items-center gap-4 shadow">
-            <div class="bg-green-100 text-green-600 p-6 rounded-xl">
-                <i class="fa-solid fa-circle-check text-3xl"></i>
+        <div class="h-14 w-px bg-gray-200"></div>
+
+        {{-- SELESAI --}}
+        <div class="flex items-center gap-4">
+            <div class="bg-gray-100 p-6 rounded-2xl text-blue-500">
+                <i class="fa-solid fa-check text-3xl"></i>
             </div>
             <div>
-                <p class="text-gray-500 text-sm">Selesai</p>
-                <p class="text-2xl font-bold">{{ $selesai }}</p>
+                <p class="text-gray-400 text-sm">Selesai</p>
+                <p class="text-3xl font-bold">{{ $selesai }}</p>
             </div>
         </div>
 
     </div>
 
-    {{-- Charts --}}
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
-        {{-- Statistik Harian --}}
-        <div class="bg-white rounded-2xl p-6 shadow">
-            <h3 class="font-semibold mb-4">Statistik Harian</h3>
-            <canvas id="harianChart"></canvas>
+    {{-- ================= TABEL + TIPS ================= --}}
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        {{-- TABEL --}}
+        <div class="lg:col-span-2 bg-white rounded-2xl shadow p-6">
+
+            <h3 class="font-semibold mb-4">Laporan Terbaru Saya</h3>
+
+            <div class="overflow-hidden rounded-xl border border-gray-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-gray-100 text-gray-600">
+                        <tr>
+                            <th class="px-3 py-3 text-left">Nama</th>
+                            <th class="px-3 py-3 text-center">Tanggal</th>
+                            <th class="px-3 py-3 text-center">Lokasi</th>
+                            <th class="px-3 py-3 text-center">Status</th>
+                            <th class="px-3 py-3 text-center">Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="divide-y">
+                        @foreach($latest as $item)
+                        <tr class="hover:bg-gray-50">
+
+                            <td class="px-3 py-3">
+                                {{ $item->user->name }}
+                            </td>
+
+                            <td class="px-3 py-3 text-center">
+                                {{ \Carbon\Carbon::parse($item->date)->format('d-m-Y') }}
+                            </td>
+
+                            <td class="px-3 py-3 text-center">
+                                {{ $item->location }}
+                            </td>
+
+                            <td class="px-3 py-3 text-center">
+                                @php
+                                    $statusClass = match($item->status) {
+                                        'menunggu' => 'bg-red-100 text-red-600',
+                                        'diproses' => 'bg-orange-100 text-orange-600',
+                                        'selesai' => 'bg-green-100 text-green-600',
+                                    };
+                                @endphp
+
+                                <span class="px-3 py-1 rounded-full text-xs font-semibold {{ $statusClass }}">
+                                    {{ ucfirst($item->status) }}
+                                </span>
+                            </td>
+
+                            <td class="px-3 py-3 text-center">
+                                <a href="{{ route('pengaduan.show', $item->id) }}"
+                                   class="inline-flex items-center justify-center w-8 h-8 rounded-full
+                                          border border-blue-500 text-blue-600 hover:bg-blue-50">
+                                    <i class="fa-solid fa-eye text-xs"></i>
+                                </a>
+                            </td>
+
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        {{-- Statistik Bulanan --}}
-        <div class="bg-white rounded-2xl p-6 shadow">
-            <h3 class="font-semibold mb-4">Statistik Bulanan</h3>
-            <canvas id="bulananChart"></canvas>
+        {{-- TIPS CARD --}}
+        <div class="bg-white rounded-2xl shadow p-4 flex flex-col justify-between">
+
+            <div>
+                <h4 class="font-semibold mb-3">Tips Menjaga Sarana Sekolah 💡</h4>
+
+                <ul class="text-sm space-y-3 text-gray-600">
+                    <li>✔️ Jaga kebersihan fasilitas sekolah</li>
+                    <li>✔️ Gunakan dengan bijak</li>
+                    <li>✔️ Laporkan kerusakan segera</li>
+                </ul>
+
+                <img src="{{ asset('images/tips.png') }}"
+                     class="mt-4 rounded-xl">
+            </div>
+
+            <a href="{{ route('pengaduan.create') }}"
+               class="mt-4 bg-blue-600 text-white text-sm text-center py-3 rounded-xl hover:bg-blue-700 transition">
+                + Buat Pengaduan Baru
+            </a>
+
         </div>
 
     </div>
 
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-
-// Chart Harian
-new Chart(document.getElementById('harianChart'), {
-    type: 'line',
-    data: {
-        labels: {!! json_encode($harian->pluck('tanggal')) !!},
-        datasets: [{
-            label: 'Pengaduan Harian',
-            data: {!! json_encode($harian->pluck('total')) !!},
-            borderColor: '#ef4444',
-            backgroundColor: 'rgba(239,68,68,0.2)',
-            fill: true,
-            tension: 0.4
-        }]
-    }
-});
-
-// Chart Bulanan
-new Chart(document.getElementById('bulananChart'), {
-    type: 'line',
-    data: {
-        labels: {!! json_encode($bulanan->pluck('bulan')) !!},
-        datasets: [{
-            label: 'Pengaduan Bulanan',
-            data: {!! json_encode($bulanan->pluck('total')) !!},
-            borderColor: '#3b82f6',
-            backgroundColor: 'rgba(59,130,246,0.2)',
-            fill: true,
-            tension: 0.4
-        }]
-    }
-});
-
-</script>
 
 @endsection

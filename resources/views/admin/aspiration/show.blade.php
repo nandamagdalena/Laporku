@@ -45,24 +45,17 @@
         {{-- LEFT --}}
         <div class="md:col-span-2 space-y-4 text-sm">
 
-            <div>
+            {{-- <div>
                 <p class="font-semibold text-gray-800 mb-1">Nama</p>
                 <p class="font-medium text-gray-500 wrap-break-word">
                     {{ $aspiration->name }}
                 </p>
-            </div>
+            </div> --}}
 
             <div>
-                <p class="font-semibold text-gray-800 mb-1">Username</p>
+                <p class="font-semibold text-gray-800 mb-1">Nama Pelapor</p>
                 <p class="font-medium text-gray-500 wrap-break-word">
                     {{ $aspiration->user?->name }}
-                </p>
-            </div>
-
-            <div>
-                <p class="font-semibold text-gray-800 mb-1">Tanggal</p>
-                <p class="font-medium text-gray-500 wrap-break-word">
-                    {{ \Carbon\Carbon::parse($aspiration->tanggal)->format('d-m-Y') }}
                 </p>
             </div>
 

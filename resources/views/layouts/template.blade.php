@@ -108,22 +108,21 @@
             </div>
 
             {{-- menunggu --}}
-            <div>
+            {{-- <div>
                 <a href="{{ route('aspirations.menunggu') }}"
                 class="relative flex items-center gap-4 px-5 py-3 rounded-xl transition-all duration-200
-                {{ request()->routeIs('aspiration.menunggu')
+                {{ request()->routeIs('aspirations.menunggu')
                         ? 'bg-[#a2e8ff4c] text-[#00afea] font-semibold'
                         : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900' }}">
 
-                    {{-- GARIS AKTIF DI SISI SIDEBAR --}}
-                    @if(request()->routeIs('aspiration.menunggu'))
+                    @if(request()->routeIs('aspirations.menunggu'))
                         <span class="absolute -left-5 top-0 h-full w-1 bg-yellow-400 rounded-r-full"></span>
                     @endif
 
                     <i class="fa-solid fa-file-circle-exclamation text-lg"></i>
                     Menunggu
                 </a>
-            </div>
+            </div> --}}
 
             {{-- kategori --}}
             <div>

@@ -8,7 +8,7 @@
     <div>
         <h1 class="text-2xl font-semibold text-gray-800">Daftar Pengaduan</h1>
         <div class="text-sm text-gray-500 mt-1">
-            <span class="text-[#00afea]">Kelola Keseluruhan Pengaduan</span>
+            <span class="text-[#00afea]">Kelola Data Pengaduan</span>
         </div>
     </div>
 

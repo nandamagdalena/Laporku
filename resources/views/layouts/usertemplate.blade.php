@@ -21,10 +21,12 @@
     {{-- SIDEBAR --}}
     <aside id="sidebar" class="w-80 bg-white flex flex-col transition-all duration-300">
 
-        {{-- Logo --}}
-        <div class="h-28 flex items-center px-16">
-            <!-- DARI h-20 JADI h-24 -->
-            <img src="{{ asset('images/logonew.png') }}" alt="Laporku" class="h-24">
+        <div class="flex items-center pt-4 pl-6">
+            <img
+                src="{{ asset('images/logo2.png') }}"
+                alt="Laporku"
+                class="h-16 w-auto"
+            >
         </div>
 
         {{-- Menu --}}
@@ -35,11 +37,17 @@
                 <p class="text-sm font-bold uppercase mb-3 text-gray-900">Dashboard</p>
 
                 <a href="{{ route('user.dashboard') }}"
-                class="flex items-center gap-4 px-5 py-3 rounded-xl
+                class="relative flex items-center gap-4 px-5 py-3 rounded-xl transition-all duration-200
                 {{ request()->routeIs('user.dashboard')
                         ? 'bg-[#a2e8ff4c] text-[#00afea] font-semibold'
                         : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900' }}">
-                    <i class="fa-solid fa-house"></i>
+
+                    {{-- GARIS AKTIF DI SISI SIDEBAR --}}
+                    @if(request()->routeIs('user.dashboard'))
+                        <span class="absolute -left-5 top-0 h-full w-1 bg-yellow-400 rounded-r-full"></span>
+                    @endif
+
+                    <i class="fa-solid fa-house text-lg"></i>
                     Dashboard
                 </a>
             </div>
@@ -47,26 +55,39 @@
             {{-- Pengaduan --}}
             <div>
                 <p class="text-sm font-bold uppercase mb-3 text-gray-900">Pengaduan</p>
+                <div>
+                    <a href="{{ route('pengaduan.create') }}"
+                    class="relative flex items-center gap-4 px-5 py-3 rounded-xl transition-all duration-200
+                    {{ request()->routeIs('pengaduan.create')
+                            ? 'bg-[#a2e8ff4c] text-[#00afea] font-semibold'
+                            : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900' }}">
 
-                <a href="{{ route('pengaduan.create') }}"
-                class="flex items-center gap-4 px-5 py-3 rounded-xl
-                {{ request()->routeIs('pengaduan.create')
-                        ? 'bg-[#a2e8ff4c] text-[#00afea] font-semibold'
-                        : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900' }}">
-                    <i class="fa-regular fa-file-lines"></i>
-                    Form Pengaduan
-                </a>
+                        {{-- GARIS AKTIF DI SISI SIDEBAR --}}
+                        @if(request()->routeIs('pengaduan.create'))
+                            <span class="absolute -left-5 top-0 h-full w-1 bg-yellow-400 rounded-r-full"></span>
+                        @endif
 
-                <a href="{{ route('pengaduan.mine') }}"
-                class="flex items-center gap-4 px-5 py-3 rounded-xl
-                {{ request()->routeIs('pengaduan.mine')
-                        ? 'bg-[#a2e8ff4c] text-[#00afea] font-semibold'
-                        : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900' }}">
-                    <i class="fa-solid fa-clock-rotate-left"></i>
-                    Riwayat Pengaduan
-                </a>
+                        <i class="fa-regular fa-file-lines"></i>
+                        Buat Pengaduan
+                    </a>
             </div>
 
+            <div>
+                <a href="{{ route('pengaduan.mine') }}"
+                class="relative flex items-center gap-4 px-5 py-3 rounded-xl transition-all duration-200
+                    {{ request()->routeIs('pengaduan.mine')
+                            ? 'bg-[#a2e8ff4c] text-[#00afea] font-semibold'
+                            : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900' }}">
+
+                        {{-- GARIS AKTIF DI SISI SIDEBAR --}}
+                        @if(request()->routeIs('pengaduan.mine'))
+                            <span class="absolute -left-5 top-0 h-full w-1 bg-yellow-400 rounded-r-full"></span>
+                        @endif
+
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                        Riwayat Pengaduan
+                </a>
+            </div>
         </nav>
     </aside>
 
@@ -137,7 +158,7 @@
                         <hr class="my-6 opacity-5">
 
                         <a
-                            href="{{ route('profile.edit') }}"
+                            href="#"
                             class="block w-full text-center bg-blue-50 text-blue-600 py-3 rounded-xl font-semibold hover:bg-blue-100 transition">
                             Edit Profil
                         </a>
