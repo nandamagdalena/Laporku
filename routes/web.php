@@ -11,16 +11,19 @@ use App\Http\Controllers\DashboardUserController;
 
 Route::get('/', function () {
 
-    if (!auth()->check()) {
-        return redirect()->route('login');
+    if (auth()->check()) {
+        return match (auth()->user()->role) {
+            'admin' => redirect()->route('admin.dashboard'),
+            'user'  => redirect()->route('user.dashboard'),
+        };
     }
 
-    return match (auth()->user()->role) {
-        'admin' => redirect()->route('admin.dashboard'),
-        'user'  => redirect()->route('user.dashboard'),
-        default => redirect()->route('login'),
-    };
-});
+    return view('landing');
+})->name('landing');
+
+Route::view('/', 'landing')->name('landing');
+Route::view('/faq', 'faq')->name('faq');
+Route::view('/tentang', 'tentang')->name('tentang');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'loginForm'])->name('login');

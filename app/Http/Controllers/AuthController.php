@@ -17,18 +17,18 @@ class AuthController extends Controller
         $this->user = $user;
     }
 
-    public function home()
-    {
-        if (!Auth::check()) {
-            return redirect()->route('login');
-        }
+    // public function home()
+    // {
+    //     if (!Auth::check()) {
+    //         return redirect()->route('login');
+    //     }
 
-        return match (Auth::user()->role) {
-            'admin' => redirect()->route('admin.dashboard'),
-            'user'  => redirect()->route('user.dashboard'),
-            default => $this->forceLogout(),
-        };
-    }
+    //     return match (Auth::user()->role) {
+    //         'admin' => redirect()->route('admin.dashboard'),
+    //         'user'  => redirect()->route('user.dashboard'),
+    //         default => $this->forceLogout(),
+    //     };
+    // }
 
     public function registerForm()
     {

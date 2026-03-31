@@ -220,32 +220,71 @@ class AspirationController extends Controller
         return view('admin.aspiration.menunggu', compact('aspirations'));
     }
 
-    public function diproses()
+    public function diproses(Request $request)
     {
-        $aspirations = Aspiration::with(['user','category'])
-            ->where('status', 'diproses')
+        $query = Aspiration::with(['user','category'])
+            ->where('status', 'diproses'); // 🔥 WAJIB filter status
+
+        // Search
+        if ($request->search) {
+            $query->where(function($q) use ($request) {
+                $q->whereHas('user', function($q2) use ($request) {
+                    $q2->where('name', 'like', '%' . $request->search . '%');
+                })
+                ->orWhere('location', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        $aspirations = $query
             ->orderBy('date', 'desc')
-            ->get();
+            ->paginate(10)
+            ->withQueryString();
 
         return view('admin.aspiration.diproses', compact('aspirations'));
     }
 
-    public function selesai()
+    public function selesai(Request $request)
     {
-        $aspirations = Aspiration::with(['user','category'])
-            ->where('status', 'selesai')
+        $query = Aspiration::with(['user','category'])
+            ->where('status', 'selesai'); // 🔥 WAJIB filter status
+
+        // Search
+        if ($request->search) {
+            $query->where(function($q) use ($request) {
+                $q->whereHas('user', function($q2) use ($request) {
+                    $q2->where('name', 'like', '%' . $request->search . '%');
+                })
+                ->orWhere('location', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        $aspirations = $query
             ->orderBy('date', 'desc')
-            ->get();
+            ->paginate(10)
+            ->withQueryString();
 
         return view('admin.aspiration.selesai', compact('aspirations'));
     }
 
-    public function ditolak()
+    public function ditolak(Request $request)
     {
-        $aspirations = Aspiration::with(['user','category'])
-            ->where('status', 'ditolak')
+        $query = Aspiration::with(['user','category'])
+            ->where('status', 'ditolak'); // 🔥 WAJIB filter status
+
+        // Search
+        if ($request->search) {
+            $query->where(function($q) use ($request) {
+                $q->whereHas('user', function($q2) use ($request) {
+                    $q2->where('name', 'like', '%' . $request->search . '%');
+                })
+                ->orWhere('location', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        $aspirations = $query
             ->orderBy('date', 'desc')
-            ->get();
+            ->paginate(10)
+            ->withQueryString();
 
         return view('admin.aspiration.ditolak', compact('aspirations'));
     }

@@ -108,7 +108,7 @@
             </div>
 
             {{-- menunggu --}}
-            {{-- <div>
+            <div>
                 <a href="{{ route('aspirations.menunggu') }}"
                 class="relative flex items-center gap-4 px-5 py-3 rounded-xl transition-all duration-200
                 {{ request()->routeIs('aspirations.menunggu')
@@ -122,7 +122,58 @@
                     <i class="fa-solid fa-file-circle-exclamation text-lg"></i>
                     Menunggu
                 </a>
-            </div> --}}
+            </div>
+
+            {{-- diproses --}}
+            <div>
+                <a href="{{ route('aspirations.diproses') }}"
+                class="relative flex items-center gap-4 px-5 py-3 rounded-xl transition-all duration-200
+                {{ request()->routeIs('aspirations.diproses')
+                        ? 'bg-[#a2e8ff4c] text-[#00afea] font-semibold'
+                        : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900' }}">
+
+                    @if(request()->routeIs('aspirations.diproses'))
+                        <span class="absolute -left-5 top-0 h-full w-1 bg-yellow-400 rounded-r-full"></span>
+                    @endif
+
+                    <i class="fa-solid fa-file-circle-exclamation text-lg"></i>
+                    Diproses
+                </a>
+            </div>
+
+            {{-- selesai --}}
+            <div>
+                <a href="{{ route('aspirations.selesai') }}"
+                class="relative flex items-center gap-4 px-5 py-3 rounded-xl transition-all duration-200
+                {{ request()->routeIs('aspirations.selesai')
+                        ? 'bg-[#a2e8ff4c] text-[#00afea] font-semibold'
+                        : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900' }}">
+
+                    @if(request()->routeIs('aspirations.selesai'))
+                        <span class="absolute -left-5 top-0 h-full w-1 bg-yellow-400 rounded-r-full"></span>
+                    @endif
+
+                    <i class="fa-solid fa-file-circle-exclamation text-lg"></i>
+                    Selesai
+                </a>
+            </div>
+
+            {{-- ditolak --}}
+            <div>
+                <a href="{{ route('aspirations.ditolak') }}"
+                class="relative flex items-center gap-4 px-5 py-3 rounded-xl transition-all duration-200
+                {{ request()->routeIs('aspirations.ditolak')
+                        ? 'bg-[#a2e8ff4c] text-[#00afea] font-semibold'
+                        : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900' }}">
+
+                    @if(request()->routeIs('aspirations.ditolak'))
+                        <span class="absolute -left-5 top-0 h-full w-1 bg-yellow-400 rounded-r-full"></span>
+                    @endif
+
+                    <i class="fa-solid fa-file-circle-exclamation text-lg"></i>
+                    Ditolak
+                </a>
+            </div>
 
             {{-- kategori --}}
             <div>
