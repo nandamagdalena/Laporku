@@ -8,20 +8,12 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AspirationController;
 use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\DashboardUserController;
+use App\Http\Controllers\LandingController;
+use App\Http\Controllers\AdminProfileController;
 
-Route::get('/', function () {
+Route::get('/', [LandingController::class, 'index'])->name('landing');
 
-    if (auth()->check()) {
-        return match (auth()->user()->role) {
-            'admin' => redirect()->route('admin.dashboard'),
-            'user'  => redirect()->route('user.dashboard'),
-        };
-    }
-
-    return view('landing');
-})->name('landing');
-
-Route::view('/', 'landing')->name('landing');
+// Route::view('/', 'landing')->name('landing');
 Route::view('/faq', 'faq')->name('faq');
 Route::view('/tentang', 'tentang')->name('tentang');
 
@@ -36,15 +28,13 @@ Route::middleware('guest')->group(function () {
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
 Route::middleware('auth')->group(function () {
-    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
     // Admin Routes
     Route::middleware('role:admin')->prefix('admin')->group(function () {
         // Route::get('/dashboard', fn () => view('admin.dashboard'))->name('admin.dashboard');
         Route::get('/dashboard', [DashboardAdminController::class, 'index'])->name('admin.dashboard');
 
+        Route::get('/profile', [AdminProfileController::class, 'index'])->name('admin.profile');
+        Route::post('/profile/update', [AdminProfileController::class, 'update'])->name('admin.profile.update');
         // Daftar Pengguna Management
         Route::get('/daftarpengguna', [IndexUserController::class, 'index'])->name('admin.users');
         Route::delete('/daftarpengguna/{id}', [IndexUserController::class, 'destroy'])->name('users.delete');

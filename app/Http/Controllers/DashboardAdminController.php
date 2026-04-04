@@ -11,27 +11,24 @@ class DashboardAdminController extends Controller
 {
     public function index()
     {
-        // === CARD STATISTIK ===
+        // === CARD ===
         $totalUsers = User::where('role', 'user')->count();
         $totalCategories = Category::count();
         $totalAspirations = Aspiration::count();
 
-        // === LIST USER TERBARU ===
+        // === USER TERBARU ===
         $latestUsers = User::where('role', 'user')
             ->latest()
             ->take(4)
             ->get();
 
-        // === CHART PENGADUAN (STATUS) ===
-        $pengaduanChart = Aspiration::select(
-                'status',
-                DB::raw('COUNT(*) as total')
-            )
-            ->groupBy('status')
-            ->orderBy('status')
+        // === 🔥 TAMBAHAN: LAPORAN TERBARU ===
+        $latestAspirations = Aspiration::with('user') // penting buat ambil nama user
+            ->latest()
+            ->take(5)
             ->get();
 
-        // Chart penambahan pengguna per bulan (TAHUN INI)
+        // === USER PER BULAN ===
         $userChart = User::select(
                 DB::raw('MONTH(created_at) as month'),
                 DB::raw('COUNT(*) as total')
@@ -42,14 +39,24 @@ class DashboardAdminController extends Controller
             ->orderBy('month')
             ->get();
 
+        // === PENGADUAN PER BULAN ===
+        $pengaduanPerBulan = Aspiration::select(
+                DB::raw('MONTH(created_at) as month'),
+                DB::raw('COUNT(*) as total')
+            )
+            ->whereYear('created_at', now()->year)
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get();
 
         return view('admin.dashboard', compact(
             'totalUsers',
             'totalCategories',
             'totalAspirations',
             'latestUsers',
-            'pengaduanChart',
-            'userChart'
+            'latestAspirations', // 🔥 kirim ke view
+            'userChart',
+            'pengaduanPerBulan'
         ));
     }
 }

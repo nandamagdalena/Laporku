@@ -4,16 +4,50 @@
 
 @section('content')
 
+<style>
+@keyframes float1 {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes float2 {
+  0%,100% { transform: translate(0,0); }
+  50% { transform: translate(6px,-8px); }
+}
+
+@keyframes float3 {
+  0%,100% { transform: translate(0,0); }
+  50% { transform: translate(-6px,6px); }
+}
+
+</style>
+
 <div class="space-y-6">
 
     {{-- BANNER --}}
     <div class="relative overflow-hidden rounded-2xl shadow-md px-6 py-4 text-white">
 
         {{-- Gradient Background --}}
-        <div class="absolute inset-0 bg-linear-to-r from-[#1ac8db] to-blue-500"></div>
+        <div class="absolute inset-0 bg-linear-to-r from-[#1ac8db] to-blue-300"></div>
 
         {{-- Soft Glow --}}
         <div class="absolute -top-10 -left-10 w-40 h-40 bg-cyan-300 opacity-20 blur-2xl rounded-full"></div>
+
+        <img src="{{ asset('images/bintang.png') }}"
+        class="absolute top-2 left-4 w-16 opacity-30 pointer-events-none
+        animate-[float1_6s_ease-in-out_infinite,blink_2s_ease-in-out_infinite]">
+
+        <img src="{{ asset('images/bintang.png') }}"
+        class="absolute bottom-2 left-10 w-20 opacity-20 pointer-events-none
+        animate-[float2_8s_ease-in-out_infinite,blink_3s_ease-in-out_infinite]">
+
+        <img src="{{ asset('images/bintang.png') }}"
+        class="absolute top-4 right-20 w-20 opacity-30 pointer-events-none
+        animate-[float3_7s_ease-in-out_infinite,blink_2.5s_ease-in-out_infinite]">
+
+        <img src="{{ asset('images/bintang.png') }}"
+        class="absolute bottom-2 right-4 w-16 opacity-20 pointer-events-none
+        animate-[float1_9s_ease-in-out_infinite,blink_3.5s_ease-in-out_infinite]">
 
         <div class="relative flex items-center justify-between">
 
@@ -46,7 +80,7 @@
             </div>
 
             {{-- IMAGE --}}
-            <img src="{{ asset('images/people.png') }}"
+            <img src="{{ asset('images/pensil.png') }}"
                 class="w-28 md:w-32 drop-shadow-lg hidden md:block">
 
         </div>
@@ -57,7 +91,7 @@
 
         {{-- MENUNGGU --}}
         <div class="flex items-center gap-4">
-            <div class="bg-blue-100 p-6 rounded-2xl text-blue-600">
+            <div class="bg-yellow-100 p-6 rounded-2xl text-yellow-600">
                 <i class="fa-solid fa-clock text-3xl"></i>
             </div>
             <div>
@@ -70,7 +104,7 @@
 
         {{-- PROSES --}}
         <div class="flex items-center gap-4">
-            <div class="bg-gray-100 p-6 rounded-2xl text-blue-500">
+            <div class="bg-blue-100 p-6 rounded-2xl text-blue-500">
                 <i class="fa-solid fa-rotate text-3xl"></i>
             </div>
             <div>
@@ -83,7 +117,7 @@
 
         {{-- SELESAI --}}
         <div class="flex items-center gap-4">
-            <div class="bg-gray-100 p-6 rounded-2xl text-blue-500">
+            <div class="bg-green-100 p-6 rounded-2xl text-green-600">
                 <i class="fa-solid fa-check text-3xl"></i>
             </div>
             <div>
@@ -93,7 +127,6 @@
         </div>
 
     </div>
-
 
     {{-- ================= TABEL + TIPS ================= --}}
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -105,7 +138,7 @@
 
             <div class="overflow-hidden rounded-xl border border-gray-200">
                 <table class="w-full text-sm">
-                    <thead class="bg-gray-100 text-gray-600">
+                    <thead class="bg-cyan-600 text-white">
                         <tr>
                             <th class="px-3 py-3 text-left">Nama</th>
                             <th class="px-3 py-3 text-center">Tanggal</th>
@@ -134,9 +167,10 @@
                             <td class="px-3 py-3 text-center">
                                 @php
                                     $statusClass = match($item->status) {
-                                        'menunggu' => 'bg-red-100 text-red-600',
-                                        'diproses' => 'bg-orange-100 text-orange-600',
+                                        'menunggu' => 'bg-yellow-100 text-yellow-600',
+                                        'diproses' => 'bg-blue-100 text-blue-600',
                                         'selesai' => 'bg-green-100 text-green-600',
+                                        'ditolak' => 'bg-red-100 text-red-600',
                                     };
                                 @endphp
 
@@ -177,7 +211,7 @@
             </div>
 
             <a href="{{ route('pengaduan.create') }}"
-               class="mt-4 bg-blue-600 text-white text-sm text-center py-3 rounded-xl hover:bg-blue-700 transition">
+               class="mt-4 bg-[#1ac8db] text-white text-sm text-center py-3 rounded-xl hover:bg-blue-700 transition">
                 + Buat Pengaduan Baru
             </a>
 

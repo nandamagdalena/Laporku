@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('phone_number')->unique();
             $table->string('role')->default('user');
             $table->string('password');
+            $table->string('photo')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
