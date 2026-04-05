@@ -124,10 +124,12 @@
                     </div>
 
                     <img
-                        src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=2563eb&color=fff"
-                        class="w-12 h-12 rounded-full"
-                        alt="Avatar"
-                    >
+                        src="{{ Auth::user()->photo
+                            ? asset('storage/' . Auth::user()->photo)
+                            : 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) . '&background=2563eb&color=fff' }}"
+                            class="w-12 h-12 rounded-full object-cover"
+                            alt="Avatar"
+                        >
                 </button>
 
                 {{-- DROPDOWN PROFILE --}}
@@ -139,8 +141,10 @@
 
                         <div class="flex items-center gap-4">
                             <img
-                                src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=ef4444&color=fff"
-                                class="w-16 h-16 rounded-full"
+                                src="{{ Auth::user()->photo
+                                    ? asset('storage/' . Auth::user()->photo)
+                                    : 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) . '&background=2563eb&color=fff' }}"
+                                class="w-12 h-12 rounded-full object-cover"
                                 alt="Avatar"
                             >
 
@@ -158,7 +162,7 @@
                         <hr class="my-6 opacity-5">
 
                         <a
-                            href="#"
+                            href="{{ route('user.profile') }}"
                             class="block w-full text-center bg-blue-50 text-blue-600 py-3 rounded-xl font-semibold hover:bg-blue-100 transition">
                             Edit Profil
                         </a>

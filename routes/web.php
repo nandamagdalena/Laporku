@@ -10,6 +10,7 @@ use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\DashboardUserController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\AdminProfileController;
+use App\Http\Controllers\UserProfileController;
 
 Route::get('/', [LandingController::class, 'index'])->name('landing');
 
@@ -62,6 +63,8 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:user')->prefix('user')->group(function () {
         // Route::get('/dashboard', fn () => view('user.dashboard'))->name('user.dashboard');
         Route::get('/dashboard', [DashboardUserController::class, 'index'])->name('user.dashboard');
+        Route::get('/profile', [UserProfileController::class, 'index'])->name('user.profile');
+        Route::post('/profile/update', [UserProfileController::class, 'update'])->name('user.profile.update');
 
         Route::get('/pengaduan', [AspirationController::class, 'create'])->name('pengaduan.create');
         Route::post('/pengaduan', [AspirationController::class, 'store'])->name('pengaduan.store');

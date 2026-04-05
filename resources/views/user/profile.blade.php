@@ -1,4 +1,4 @@
-@extends('layouts.template')
+@extends('layouts.usertemplate')
 
 @section('title', 'Profile')
 
@@ -15,7 +15,7 @@
 
     <div class="bg-white rounded-2xl shadow p-8">
 
-        <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('user.profile.update') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <input type="hidden" name="remove_photo" id="removePhotoInput" value="0">

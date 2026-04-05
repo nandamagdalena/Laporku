@@ -110,8 +110,13 @@
                 @foreach ($latestUsers ?? [] as $user)
                 <div class="flex items-center justify-between bg-gray-50 p-4 rounded-xl hover:bg-gray-100 transition">
                     <div class="flex items-center gap-4">
-                        <img src="https://ui-avatars.com/api/?name={{ urlencode($user->name ?? 'User') }}&background=6366f1&color=fff"
-                            class="w-12 h-12 rounded-full">
+                        <img
+                            src="{{ $user->photo
+                                ? asset('storage/' . $user->photo)
+                                : 'https://ui-avatars.com/api/?name=' . urlencode($user->name) . '&background=2563eb&color=fff' }}"
+                            class="w-12 h-12 rounded-full object-cover"
+                            alt="Avatar"
+                        >
                         <div>
                             <p class="font-semibold text-gray-800">
                                 {{ $user->name ?? 'User Name' }}

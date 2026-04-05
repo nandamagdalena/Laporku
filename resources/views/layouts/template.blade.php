@@ -180,7 +180,6 @@
     <div class="flex-1 flex flex-col">
 
         {{-- TOPBAR --}}
-        <!-- DARI h-16 JADI h-20 -->
         <header class="h-20 bg-white flex items-center justify-between px-8">
 
             <div class="flex items-center gap-4">
@@ -215,8 +214,10 @@
 
                     <!-- avatar dibesarin -->
                     <img
-                        src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=2563eb&color=fff"
-                        class="w-12 h-12 rounded-full"
+                        src="{{ Auth::user()->photo
+                            ? asset('storage/' . Auth::user()->photo)
+                            : 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) . '&background=2563eb&color=fff' }}"
+                        class="w-12 h-12 rounded-full object-cover"
                         alt="Avatar"
                     >
                 </button>
@@ -228,8 +229,10 @@
 
                         <div class="flex items-center gap-5">
                             <img
-                                src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=ef4444&color=fff"
-                                class="w-16 h-16 rounded-full"
+                                src="{{ Auth::user()->photo
+                                    ? asset('storage/' . Auth::user()->photo)
+                                    : 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) . '&background=2563eb&color=fff' }}"
+                                class="w-12 h-12 rounded-full object-cover"
                                 alt="Avatar"
                             >
 
