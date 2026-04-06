@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <title>Landing</title>
@@ -32,8 +32,9 @@
 
         <div class="hidden md:flex gap-8 text-gray-600">
             <a href="#" class="text-[#1ac8db] font-semibold">Beranda</a>
-            <a href="#">FAQ</a>
-            <a href="#">Tentang</a>
+            <a href="#faq" class="text-gray-700 font-semibold hover:text-blue-600 transition duration-300">FAQ</a>
+            <a href="#tentang" class="text-gray-700 font-semibold hover:text-blue-600 transition duration-300">
+                Tentang</a>
         </div>
 
         <div class="flex gap-3">
@@ -61,7 +62,7 @@
                     Kirim Pengaduan
                 </a>
 
-                <a href="#"
+                <a href="#pelajari"
                 class="border border-gray-400 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition">
                     Pelajari
                 </a>
@@ -94,7 +95,7 @@
 </section>
 
 {{-- PANDUAN --}}
-<section id="cara" class="bg-white py-16 md:py-24">
+<section id="pelajari" class="scroll-mt-20 bg-white py-16 md:py-24">
     <div class="max-w-6xl mx-auto px-6">
         <div class="text-center mb-12">
             <p class="text-sm text-cyan-600 font-semibold mb-2">PANDUAN SINGKAT</p>
@@ -141,7 +142,7 @@
 </section>
 
 {{-- FAQ --}}
-<section id="faq" class="relative bg-linear-to-r from-green-100 to-blue-100 py-10 md:py-14 overflow-hidden">
+<section id="faq" class="scroll-mt-20 relative bg-linear-to-r from-green-100 to-blue-100 py-10 md:py-14 overflow-hidden">
     <!-- Bintang 1 -->
     <img src="/images/bintang.png"
     class="absolute top-[10%] left-[5%] w-28 opacity-40 pointer-events-none animate-[float1_6s_ease-in-out_infinite]">
@@ -175,16 +176,16 @@
                     Bagaimana cara mendaftar di sistem ini?
                     <i class="fas fa-chevron-down group-open:rotate-180 transition"></i>
                 </summary>
-                <p class="text-gray-600 mt-4">Anda dapat mendaftar dengan klik tombol "Daftar" di halaman utama, kemudian isi formulir dengan data diri yang valid. Pastikan email Anda aktif untuk verifikasi akun.</p>
+                <p class="text-gray-600 mt-4">Anda dapat mendaftar dengan klik tombol "Daftar" di halaman utama, kemudian isi formulir dengan data diri yang valid.</p>
             </details>
 
             <!-- FAQ 2 -->
             <details class="bg-white p-6 rounded-lg shadow-sm group cursor-pointer">
                 <summary class="flex items-center justify-between font-semibold text-gray-900 select-none">
-                    Apakah data saya aman di aplikasi ini?
+                    Apakah data saya aman?
                     <i class="fas fa-chevron-down group-open:rotate-180 transition"></i>
                 </summary>
-                <p class="text-gray-600 mt-4">Ya, semua data pengguna dilindungi dengan enkripsi tingkat tinggi dan sesuai dengan standar keamanan data internasional. Kami tidak akan membagikan data Anda kepada pihak ketiga.</p>
+                <p class="text-gray-600 mt-4">Ya, semua data pengguna dilindungi. Kami tidak akan membagikan data Anda kepada pihak ketiga.</p>
             </details>
 
             <!-- FAQ 3 -->
@@ -193,7 +194,7 @@
                     Berapa lama waktu yang diperlukan untuk memproses pengaduan?
                     <i class="fas fa-chevron-down group-open:rotate-180 transition"></i>
                 </summary>
-                <p class="text-gray-600 mt-4">Pengaduan akan diverifikasi dalam 1-2 hari kerja. Setelah itu, tim teknis akan melakukan perbaikan sesuai prioritas dan kondisi kerusakan. Anda akan mendapatkan notifikasi untuk setiap update status.</p>
+                <p class="text-gray-600 mt-4">Pengaduan akan diverifikasi dalam 1-2 hari kerja. Setelah itu, tim teknis akan melakukan perbaikan sesuai prioritas dan kondisi kerusakan.</p>
             </details>
 
             <!-- FAQ 4 -->
@@ -202,7 +203,7 @@
                     Bisakah saya melacak status pengaduan saya?
                     <i class="fas fa-chevron-down group-open:rotate-180 transition"></i>
                 </summary>
-                <p class="text-gray-600 mt-4">Tentu! Setelah login, Anda dapat melihat semua pengaduan Anda beserta status terkini. Setiap perubahan status akan diberitahukan melalui notifikasi otomatis.</p>
+                <p class="text-gray-600 mt-4">Tentu! Setelah login, Anda dapat melihat semua pengaduan Anda beserta status terkini.</p>
             </details>
 
             <!-- FAQ 5 -->
@@ -211,14 +212,14 @@
                     Apa saja jenis kerusakan yang bisa dilaporkan?
                     <i class="fas fa-chevron-down group-open:rotate-180 transition"></i>
                 </summary>
-                <p class="text-gray-600 mt-4">Semua jenis kerusakan sarana dan prasarana sekolah dapat dilaporkan, mulai dari kerusakan bangunan, peralatan pembelajaran, meubelé, hingga fasilitas umum lainnya.</p>
+                <p class="text-gray-600 mt-4">Semua jenis kerusakan sarana dan prasarana sekolah dapat dilaporkan, mulai dari kerusakan bangunan, peralatan pembelajaran, hingga fasilitas sekolah lainnya.</p>
             </details>
         </div>
     </div>
 </section>
 
 <!-- TENTANG -->
-<section id="tentang" class="bg-white py-12 md:py-16">
+<section id="tentang" class="scroll-mt-20 bg-white py-12 md:py-16">
     <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
         <div>
             <p class="text-sm text-cyan-600 font-semibold mb-2">ℹ️ TENTANG KAMI</p>
@@ -227,14 +228,14 @@
             <div class="space-y-6">
                 <div>
                     <h3 class="font-semibold text-gray-900 mb-2 flex items-center gap-2">
-                        <i class="fas fa-bullseye text-cyan-600"></i> Visi
+                        Visi
                     </h3>
                     <p class="text-gray-600">Menjadi sistem pengaduan terpercaya yang meningkatkan kualitas sarana dan prasarana di SMK Negeri 4 Bojonegoro melalui partisipasi aktif seluruh warga sekolah.</p>
                 </div>
 
                 <div>
                     <h3 class="font-semibold text-gray-900 mb-2 flex items-center gap-2">
-                        <i class="fas fa-target text-cyan-600"></i> Misi
+                        Misi
                     </h3>
                     <p class="text-gray-600">Memberikan platform yang mudah digunakan untuk melaporkan kerusakan, meningkatkan transparansi dalam penanganan masalah, dan mempercepat proses perbaikan sarana dan prasarana sekolah.</p>
                 </div>
