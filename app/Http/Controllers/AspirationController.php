@@ -161,23 +161,40 @@ class AspirationController extends Controller
 
     public function exportExcel(Request $request)
     {
-        $start_date = $request->start_date;
-        $end_date   = $request->end_date;
+        $query = Aspiration::with(['user', 'category'])
 
-        $query = Aspiration::with(['user', 'category']);
+            ->when($request->search, function ($q) use ($request) {
+                $q->where(function ($query) use ($request) {
+                    $query->whereHas('user', function ($u) use ($request) {
+                            $u->where('name', 'like', '%' . $request->search . '%');
+                        })
+                        ->orWhere('location', 'like', '%' . $request->search . '%')
+                        ->orWhere('description', 'like', '%' . $request->search . '%');
+                });
+            })
 
-        if (!empty($start_date) && !empty($end_date)) {
-            $query->whereDate('date', '>=', $start_date)
-                ->whereDate('date', '<=', $end_date);
-        }
+            ->when($request->category, function ($q) use ($request) {
+                $q->whereIn('category_id', $request->category);
+            })
 
-        $aspirations = $query
-            ->orderBy('date', 'desc')
-            ->get();
+            ->when($request->status, function ($q) use ($request) {
+                $q->whereIn('status', (array)$request->status);
+            })
+
+            ->when($request->start_date && $request->end_date, function ($q) use ($request) {
+                $q->whereBetween('date', [
+                    $request->start_date,
+                    $request->end_date
+                ]);
+            })
+
+            ->orderBy('date', 'desc');
+
+        $data = $query->get();
 
         return Excel::download(
-            new AspirationsExport($aspirations, $start_date, $end_date),
-            'laporan-pengaduan.xlsx'
+            new AspirationsExport($data, $request->start_date, $request->end_date),
+            'laporan_pengaduan.xlsx'
         );
     }
 

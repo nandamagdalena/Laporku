@@ -135,7 +135,7 @@
         {{-- Chart Bar --}}
         <div class="bg-white p-6 rounded-2xl shadow-md">
 
-            <h3 class="font-semibold mb-4">Laporan Terbaru Saya</h3>
+            <h3 class="font-semibold mb-4">Laporan Terbaru</h3>
 
             <div class="overflow-hidden rounded-xl border border-gray-200">
                 <table class="w-full text-sm">
@@ -181,7 +181,7 @@
                             </td>
 
                             <td class="px-3 py-3 text-center">
-                                <a href="{{ route('pengaduan.show', $item->id) }}"
+                                <a href="{{ route('aspiration.show', $item->id) }}"
                                 class="inline-flex items-center justify-center w-8 h-8 rounded-full
                                         border border-blue-500 text-blue-600 hover:bg-blue-50">
                                     <i class="fa-solid fa-eye text-xs"></i>

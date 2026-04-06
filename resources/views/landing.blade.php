@@ -307,11 +307,11 @@
 </section>
 
 <!-- FOOTER -->
-<footer class="bg-cyan-600 text-gray-800 py-12">
+<footer class="bg-cyan-950 text-white py-12">
     <div class="max-w-6xl mx-auto px-6">
         <div class="grid md:grid-cols-4 gap-8 mb-8">
             <div>
-                <h4 class="font-semibold text-gray-800 mb-4">Tentang</h4>
+                <h4 class="font-semibold text-white mb-4">Tentang</h4>
                 <ul class="space-y-2 text-sm">
                     <li><a href="#tentang" class="hover:text-white transition">Visi & Misi</a></li>
                     <li><a href="#fitur" class="hover:text-white transition">Fitur</a></li>

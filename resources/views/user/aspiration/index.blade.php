@@ -120,7 +120,7 @@
                     </td>
 
                     <td class="px-4 py-3 text-gray-800 font-medium">
-                        {{ $item->name }}
+                        {{ $item->user?->name }}
                     </td>
 
                     <td class="px-4 py-3 text-gray-700">

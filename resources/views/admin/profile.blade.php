@@ -12,6 +12,12 @@
         <h1 class="text-2xl font-bold text-gray-800">Profile</h1>
         <p class="text-sm text-cyan-500">Kelola informasi akun anda</p>
     </div>
+    {{-- ALERT --}}
+    @if(session('success'))
+        <div class="mb-6 bg-green-100 text-green-700 px-4 py-3 rounded-lg">
+            {{ session('success') }}
+        </div>
+    @endif
 
     <div class="bg-white rounded-2xl shadow p-8">
 
@@ -75,13 +81,6 @@
                     </p>
                 </div>
             </div>
-
-            {{-- ALERT --}}
-            @if(session('success'))
-                <div class="mb-6 bg-green-100 text-green-700 px-4 py-3 rounded-lg">
-                    {{ session('success') }}
-                </div>
-            @endif
 
             {{-- FORM DATA --}}
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

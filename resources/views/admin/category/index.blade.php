@@ -25,57 +25,81 @@
     </div>
 @endif
 
-{{-- Table --}}
-<div class="bg-white rounded-xl shadow-sm overflow-hidden">
-    <table class="w-full text-sm">
-        <thead class="bg-[#02779E] text-white">
-            <tr>
-                <th class="px-6 py-3 text-left">No</th>
-                <th class="px-6 py-3 text-left">Nama Kategori</th>
-                <th class="px-6 py-3 text-center">Aksi</th>
-            </tr>
-        </thead>
-        <tbody class="divide-y">
-            @forelse ($categories as $category)
+<div class="bg-white rounded-xl shadow p-6">
+    <form method="GET" class="relative w-60 m-4 ">
+        <input
+            type="text"
+            name="search"
+            value="{{ request('search') }}"
+            placeholder="Telusuri sesuatu..."
+            class="w-full rounded-lg border border-gray-300 pl-10 pr-4 py-2 text-sm
+            focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+
+        <!-- icon search -->
+        <svg class="absolute left-3 top-2.5 w-4 h-4 text-gray-400"
+        fill="none" stroke="currentColor" stroke-width="2"
+        viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round"
+            d="M21 21l-4.35-4.35m1.35-5.65a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+
+        <!-- jaga sorting saat search -->
+        <input type="hidden" name="sort" value="{{ request('sort') }}">
+    </form>
+
+    {{-- Table --}}
+    <div class="bg-white rounded-xl shadow-sm overflow-hidden m-4">
+        <table class="w-full text-sm">
+            <thead class="bg-[#02779E] text-white">
                 <tr>
-                    <td class="px-6 py-4">{{ $categories->firstItem() + $loop->index }}</td>
-                    <td class="px-6 py-4">{{ $category->name }}</td>
-                    <td class="px-6 py-4 text-center flex justify-center gap-3">
+                    <th class="px-6 py-3 text-left">No</th>
+                    <th class="px-6 py-3 text-left">Nama Kategori</th>
+                    <th class="px-6 py-3 text-center">Aksi</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y">
+                @forelse ($categories as $category)
+                    <tr>
+                        <td class="px-6 py-4">{{ $categories->firstItem() + $loop->index }}</td>
+                        <td class="px-6 py-4">{{ $category->name }}</td>
+                        <td class="px-6 py-4 text-center flex justify-center gap-3">
 
-                        {{-- Edit --}}
-                        <button onclick="openEditModal({{ $category->id }}, '{{ $category->name }}')"
-                                class="text-yellow-500 hover:text-yellow-600">
-                            <i class="fa-solid fa-pen"></i>
-                        </button>
-
-                        {{-- Delete --}}
-                        <form action="{{ route('category.destroy', $category) }}"
-                              method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button
-                                type="button"
-                                onclick="openDeleteModal('{{ route('category.destroy', $category) }}')"
-                                class="text-red-500 hover:text-red-600">
-                                <i class="fa-solid fa-trash-can"></i>
+                            {{-- Edit --}}
+                            <button onclick="openEditModal({{ $category->id }}, '{{ $category->name }}')"
+                                    class="text-yellow-500 hover:text-yellow-600">
+                                <i class="fa-solid fa-pen"></i>
                             </button>
-                        </form>
 
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="3" class="px-6 py-6 text-center text-gray-500">
-                        Data kategori belum tersedia
-                    </td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
-</div>
+                            {{-- Delete --}}
+                            <form action="{{ route('category.destroy', $category) }}"
+                                method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button
+                                    type="button"
+                                    onclick="openDeleteModal('{{ route('category.destroy', $category) }}')"
+                                    class="text-red-500 hover:text-red-600">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </form>
 
-<div class="mt-4">
-    {{ $categories->links('pagination') }}
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="3" class="px-6 py-6 text-center text-gray-500">
+                            Data kategori belum tersedia
+                        </td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-4">
+        {{ $categories->links('pagination') }}
+    </div>
 </div>
 
 {{-- MODAL TAMBAH --}}

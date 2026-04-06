@@ -76,6 +76,30 @@
                                 </div>
                             </div>
 
+                            <!-- STATUS -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    Status
+                                </label>
+
+                                <div class="space-y-2 text-sm">
+                                    @php
+                                        $statuses = ['menunggu', 'diproses', 'selesai', 'ditolak'];
+                                    @endphp
+
+                                    @foreach($statuses as $status)
+                                        <label class="flex items-center space-x-2">
+                                            <input type="checkbox"
+                                                name="status[]"
+                                                value="{{ $status }}"
+                                                {{ in_array($status, (array)request('status')) ? 'checked' : '' }}
+                                                class="rounded border-gray-300 text-[#00afea] focus:ring-[#00afea]">
+
+                                            <span>{{ ucfirst($status) }}</span>
+                                        </label>
+                                    @endforeach
+                                </div>
+                            </div>
                             <!-- TANGGAL -->
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">
