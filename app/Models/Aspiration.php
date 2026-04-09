@@ -16,7 +16,8 @@ class Aspiration extends Model
         'description',
         'image',
         'status',
-        'response'
+        'response',
+        'admin_image'
     ];
 
     //biar tanggal sesuai format

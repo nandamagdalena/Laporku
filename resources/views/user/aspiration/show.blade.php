@@ -27,16 +27,13 @@
         </div>
 
         {{-- Hapus --}}
-        <form method="POST" action="{{ route('pengaduan.destroy', $aspiration->id) }}">
-            @csrf
-            @method('DELETE')
-            <button
-                onclick="return confirm('Yakin ingin menghapus pengaduan ini?')"
-                class="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl text-sm">
-                <i class="fa-solid fa-trash"></i>
-                Hapus Pengaduan
-            </button>
-        </form>
+        <button type="button"
+            onclick="openDeleteModal({{ $aspiration->id }})"
+            class="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl text-sm">
+
+            <i class="fa-solid fa-trash"></i>
+            Hapus Pengaduan
+        </button>
     </div>
 
     {{-- Content --}}
@@ -89,31 +86,51 @@
 
         </div>
 
-        {{-- RIGHT (BUKTI) --}}
-        <div>
-            <label class="text-sm font-medium text-gray-700">Bukti</label>
+        {{-- RIGHT (BUKTI USER & ADMIN) --}}
+        <div class="space-y-4">
 
-            <div class="mt-2 h-48 border border-dashed border-gray-300 rounded-xl
-                        flex items-center justify-center">
+            {{-- BUKTI USER --}}
+            <div>
+                <label class="text-sm font-medium text-gray-700">Bukti Anda</label>
 
-                @if ($aspiration->image)
-                    <img
-                        src="{{ asset('storage/' . $aspiration->image) }}"
-                        alt="Bukti Pengaduan"
-                        class="w-full h-full object-cover rounded-xl"
-                    >
-                @else
-                    <div class="text-center text-gray-400 text-sm">
-                        <i class="fa-regular fa-image text-3xl mb-2"></i>
-                        <p>Tidak Ada Bukti</p>
-                    </div>
-                @endif
-
+                <div class="mt-2 h-40 border border-dashed border-gray-300 rounded-xl flex items-center justify-center">
+                    @if ($aspiration->image)
+                        <img
+                            src="{{ asset('storage/' . $aspiration->image) }}"
+                            class="w-full h-full object-cover rounded-xl"
+                        >
+                    @else
+                        <div class="text-center text-gray-400 text-sm">
+                            <i class="fa-regular fa-image text-2xl mb-1"></i>
+                            <p>Tidak Ada Bukti</p>
+                        </div>
+                    @endif
+                </div>
             </div>
+
+            {{-- BUKTI ADMIN --}}
+            <div>
+                <label class="text-sm font-medium text-gray-700">Bukti Admin</label>
+
+                <div class="mt-2 h-40 border border-dashed border-gray-300 rounded-xl flex items-center justify-center">
+                    @if ($aspiration->admin_image)
+                        <img
+                            src="{{ asset('storage/' . $aspiration->admin_image) }}"
+                            class="w-full h-full object-cover rounded-xl"
+                        >
+                    @else
+                        <div class="text-center text-gray-400 text-sm">
+                            <i class="fa-regular fa-image text-2xl mb-1"></i>
+                            <p>Belum ada bukti dari admin</p>
+                        </div>
+                    @endif
+                </div>
+            </div>
+
         </div>
 
         {{-- TANGGAPAN --}}
-        <div class=" md:col-span-3">
+        <div class="md:col-span-1 self-start -mt-32">
             <p class="font-semibold text-gray-800 mb-1">Tanggapan</p>
 
             @if ($aspiration->response)
@@ -128,6 +145,51 @@
         </div>
     </div>
 
+<div id="deleteModal" class="fixed inset-0 bg-black/20 hidden items-center justify-center z-50">
+
+    <div id="modalBox" class="bg-white w-[90%] max-w-md rounded-2xl shadow-lg p-6 scale-95 opacity-0 transition-all duration-300">
+
+        <!-- ICON -->
+        <div class="flex justify-center mb-4">
+            <div class="bg-red-100 text-red-500 p-3 rounded-full">
+                <i class="fa-solid fa-trash text-xl"></i>
+            </div>
+        </div>
+
+        <!-- TEXT -->
+        <h2 class="text-lg font-semibold text-gray-800 text-center">
+            Hapus Pengaduan?
+        </h2>
+
+        <p class="text-sm text-gray-500 text-center mt-2">
+            Data yang sudah dihapus tidak dapat dikembalikan.
+        </p>
+
+        <!-- BUTTON -->
+        <div class="flex gap-3 mt-6">
+
+            <!-- BATAL -->
+            <button onclick="closeDeleteModal()"
+                class="w-full py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 transition">
+                Batal
+            </button>
+
+            <!-- HAPUS -->
+            <form id="deleteForm" method="POST" class="w-full">
+                @csrf
+                @method('DELETE')
+
+                <button type="submit"
+                    class="w-full py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white transition">
+                    Ya, Hapus
+                </button>
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
 {{-- Footer --}}
 <div class="flex justify-end mt-6">
     <a
@@ -137,4 +199,41 @@
     </a>
 </div>
 
+<script>
+function openDeleteModal(id = null) {
+    const modal = document.getElementById('deleteModal');
+    const box = document.getElementById('modalBox');
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+
+    setTimeout(() => {
+        box.classList.remove('scale-95', 'opacity-0');
+        box.classList.add('scale-100', 'opacity-100');
+    }, 10);
+
+    // set action kalau pakai dynamic ID
+    if (id) {
+        document.getElementById('deleteForm').action = `/user/pengaduan/${id}`;
+    }
+}
+
+function closeDeleteModal() {
+    const modal = document.getElementById('deleteModal');
+    const box = document.getElementById('modalBox');
+
+    box.classList.add('scale-95', 'opacity-0');
+
+    setTimeout(() => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    }, 200);
+}
+
+document.getElementById('deleteModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeDeleteModal();
+    }
+});
+</script>
 @endsection

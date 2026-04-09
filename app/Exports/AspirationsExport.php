@@ -32,7 +32,7 @@ class AspirationsExport implements FromCollection, WithHeadings, WithEvents, Sho
             return [
                 $index + 1,
                 $item->user->name ?? '-',
-                optional($item->date)->format('d-m-Y'), // ✅ PAKAI DATE
+                optional($item->date)->format('d-m-Y'),
                 $item->category->name ?? '-',
                 $item->location,
                 ucfirst($item->status),
@@ -59,7 +59,7 @@ class AspirationsExport implements FromCollection, WithHeadings, WithEvents, Sho
 
                 $sheet = $event->sheet->getDelegate();
 
-                // Geser data ke bawah (jadi 5 baris header)
+                // jadi 5 baris header)
                 $sheet->insertNewRowBefore(1, 5);
 
                 // HEADER SEKOLAH
@@ -72,7 +72,7 @@ class AspirationsExport implements FromCollection, WithHeadings, WithEvents, Sho
                 $sheet->mergeCells('A3:F3');
                 $sheet->setCellValue('A3', 'LAPORAN DATA PENGADUAN');
 
-                // 🔥 PERIODE OTOMATIS
+                // PERIODE OTOMATIS
                 $sheet->mergeCells('A4:F4');
 
                 if ($this->start_date && $this->end_date) {

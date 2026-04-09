@@ -21,6 +21,24 @@
 
 </div>
 
+{{-- SUCCESS MESSAGE --}}
+@if (session('success'))
+    <div class="p-3 rounded-md bg-green-100 border border-green-400 text-green-700 text-sm">
+        {{ session('success') }}
+    </div>
+ @endif
+
+{{-- GLOBAL ERROR --}}
+@if ($errors->any())
+    <div class="p-3 rounded-md bg-red-100 border border-red-400 text-red-700 text-sm">
+        <ul class="list-disc list-inside space-y-1">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 {{-- CARD --}}
 <div class="bg-white rounded-2xl shadow p-6">
 
@@ -80,13 +98,13 @@
                 </p>
             </div>
 
-            <form method="POST" action="{{ route('aspiration.update', $aspiration->id) }}">
+            <form method="POST" action="{{ route('aspiration.update', $aspiration->id) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
                 {{-- STATUS --}}
                 <div class="mt-4">
-                    <label class="block text-gray-500 mb-1">Status</label>
+                    <label class="font-semibold block text-gray-800 mb-1">Status</label>
                     <select
                         name="status"
                         class="w-48 border rounded-xl px-3 py-2 text-sm">
@@ -99,12 +117,60 @@
 
                 {{-- TANGGAPAN --}}
                 <div class="mt-4">
-                    <label class="block text-gray-500 mb-1">Tanggapan</label>
+                    <label class="font-semibold block text-gray-800 mb-1">Tanggapan</label>
                     <textarea
                         name="response"
                         rows="4"
                         class="w-full border rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     >{{ old('response', $aspiration->response) }}</textarea>
+                </div>
+
+                {{-- Bukti admin --}}
+                <div>
+                    <label class="text-sm font-medium text-gray-700">Bukti Admin</label>
+
+                    <div class="mt-2 relative max-w-md w-full aspect-video border border-dashed border-gray-300 rounded-xl overflow-hidden">
+
+                        {{-- INPUT FILE --}}
+                        <input
+                            type="file"
+                            name="admin_image"
+                            id="admin_image_input"
+                            class="hidden"
+                            onchange="previewAdminImage(event)"
+                        >
+
+                        {{-- AREA KLIK --}}
+                        <label for="admin_image_input" class="w-full h-full cursor-pointer flex items-center justify-center">
+
+                            <div id="preview-admin" class="w-full h-full">
+                                @if ($aspiration->admin_image)
+                                    <img
+                                        src="{{ asset('storage/' . $aspiration->admin_image) }}"
+                                        class="w-full h-full object-cover"
+                                    >
+                                @else
+                                    <div class="w-full h-full flex flex-col items-center justify-center text-gray-400 text-sm">
+                                        <i class="fa-regular fa-image text-3xl mb-2"></i>
+                                        <p>Klik untuk upload</p>
+                                    </div>
+                                @endif
+                            </div>
+
+                        </label>
+
+                        {{-- TOMBOL HAPUS --}}
+                        @if ($aspiration->admin_image)
+                        <button
+                            type="button"
+                            onclick="removeAdminImage()"
+                            class="absolute top-2 right-2 bg-red-500 text-white rounded-full w-7 h-7 flex items-center justify-center text-xs hover:bg-red-600"
+                        >
+                            ✕
+                        </button>
+                        @endif
+
+                    </div>
                 </div>
 
                 {{-- BUTTON --}}
@@ -117,9 +183,10 @@
                 </div>
             </form>
         </div>
+
         {{-- RIGHT (BUKTI) --}}
         <div>
-            <p class="text-sm text-gray-500 mb-2">Bukti</p>
+            <p class="font-semibold text-sm text-gray-800 mb-2">Bukti</p>
 
             <div class="border border-dashed border-gray-300 rounded-xl h-48 flex items-center justify-center">
                 @if ($aspiration->image)
@@ -140,4 +207,46 @@
     </div>
 </div>
 
+<script>
+    function previewAdminImage(event) {
+        const input = event.target;
+        const preview = document.getElementById('preview-admin');
+
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                preview.innerHTML = `
+                    <img src="${e.target.result}" class="w-full h-full object-cover">
+                `;
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function removeAdminImage() {
+        const preview = document.getElementById('preview-admin');
+        const input = document.getElementById('admin_image_input');
+
+        // hanya set flag hapus (JANGAN langsung kosongkan kalau user belum yakin)
+        let removeInput = document.getElementById('remove_admin_image');
+
+        if (!removeInput) {
+            removeInput = document.createElement('input');
+            removeInput.type = 'hidden';
+            removeInput.name = 'remove_admin_image';
+            removeInput.value = '1';
+            input.closest('form').appendChild(removeInput);
+        }
+
+        // reset preview saja
+        preview.innerHTML = `
+            <div class="w-full h-full flex flex-col items-center justify-center text-gray-400 text-sm">
+                <i class="fa-regular fa-image text-3xl mb-2"></i>
+                <p>Klik untuk upload</p>
+            </div>
+        `;
+    }
+</script>
 @endsection

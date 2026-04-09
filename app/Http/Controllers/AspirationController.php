@@ -99,15 +99,40 @@ class AspirationController extends Controller
     {
         $request->validate([
             'status'    => 'required|in:menunggu,diproses,selesai,ditolak',
-            'response'  => 'nullable|string'
+            'response'  => 'nullable|string',
+            'admin_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
         ]);
+
+        $adminImage = $aspiration->admin_image;
+
+        // HAPUS GAMBAR
+        if ($request->remove_admin_image == '1') {
+
+            if ($aspiration->admin_image) {
+                Storage::disk('public')->delete($aspiration->admin_image);
+            }
+
+            $adminImage = null;
+
+        }
+
+        //  UPLOAD GAMBAR BARU
+        elseif ($request->hasFile('admin_image')) {
+
+            if ($aspiration->admin_image) {
+                Storage::disk('public')->delete($aspiration->admin_image);
+            }
+
+            $adminImage = $request->file('admin_image')->store('bukti-admin', 'public');
+        }
 
         $aspiration->update([
-            'status'    => $request->status,
-            'response' => $request->response,
+            'status'       => $request->status,
+            'response'     => $request->response,
+            'admin_image'  => $adminImage,
         ]);
 
-        return back()->with('success', 'Status dan tanggapan berhasil disimpan');
+        return back()->with('success', 'Data berhasil diperbarui');
     }
 
     // ADMIN & USER - DELETE
@@ -119,7 +144,8 @@ class AspirationController extends Controller
 
         $aspiration->delete();
 
-        return back()->with('success', 'Pengaduan berhasil dihapus');
+        return redirect()->route('pengaduan.mine')
+        ->with('success', 'Pengaduan berhasil dihapus');
     }
 
     // USER - RIWAYAT PENGADUAN SENDIRI
@@ -134,7 +160,7 @@ class AspirationController extends Controller
                 ->orWhere('description', 'like', '%' . $request->search . '%');
             })
             ->when($request->category, function ($q) use ($request) {
-                $q->whereIn('category_id', $request->category); // ⬅️ FIX
+                $q->whereIn('category_id', $request->category);
             })
             ->with('category')
             ->latest()
@@ -217,7 +243,7 @@ class AspirationController extends Controller
     public function menunggu(Request $request)
     {
         $query = Aspiration::with(['user','category'])
-            ->where('status', 'menunggu'); // 🔥 WAJIB filter status
+            ->where('status', 'menunggu'); // filter status
 
         // Search
         if ($request->search) {
@@ -240,7 +266,7 @@ class AspirationController extends Controller
     public function diproses(Request $request)
     {
         $query = Aspiration::with(['user','category'])
-            ->where('status', 'diproses'); // 🔥 WAJIB filter status
+            ->where('status', 'diproses'); // filter status
 
         // Search
         if ($request->search) {
@@ -263,7 +289,7 @@ class AspirationController extends Controller
     public function selesai(Request $request)
     {
         $query = Aspiration::with(['user','category'])
-            ->where('status', 'selesai'); // 🔥 WAJIB filter status
+            ->where('status', 'selesai'); // filter status
 
         // Search
         if ($request->search) {
@@ -286,7 +312,7 @@ class AspirationController extends Controller
     public function ditolak(Request $request)
     {
         $query = Aspiration::with(['user','category'])
-            ->where('status', 'ditolak'); // 🔥 WAJIB filter status
+            ->where('status', 'ditolak');
 
         // Search
         if ($request->search) {

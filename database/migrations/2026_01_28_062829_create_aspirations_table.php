@@ -28,6 +28,7 @@ return new class extends Migration
             $table->text('description');
             // Bukti gambar
             $table->string('image')->nullable();
+            $table->string('admin_image')->nullable();
             // Status pengaduan
             $table->enum('status', [
                 'menunggu',

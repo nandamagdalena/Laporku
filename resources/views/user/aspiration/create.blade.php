@@ -8,9 +8,9 @@
 <div class="mb-6">
     <h1 class="text-xl font-semibold text-gray-800">Form Pengaduan</h1>
     <p class="text-sm text-gray-500 mt-1">
-        <span class="text-gray-400">Beranda</span>
-        <span class="mx-1">›</span>
-        <span class="text-blue-600">Form Pengaduan</span>
+        <span class="text-[#00afea]">
+            Laporkan kerusakan sarana dan prasarana
+        </span>
     </p>
 </div>
 

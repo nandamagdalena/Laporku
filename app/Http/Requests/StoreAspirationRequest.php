@@ -40,6 +40,7 @@ class StoreAspirationRequest extends FormRequest
             'location.required'    => 'Lokasi wajib diisi',
             'description.required' => 'Deskripsi wajib diisi',
             'image.required'       => 'Bukti gambar wajib diupload',
+            'admin.image'          => 'Bukti gambar wajib diupload',
         ];
     }
 }
